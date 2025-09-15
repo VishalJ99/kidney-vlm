@@ -1,0 +1,25 @@
+{
+  "wsi_path": "/vol/biomedic3/histopatho/win_share/2022-10-06/CandiceRoufosse_Jedrankalist/anon_24907225-1e13-48d3-9759-f6c5574a0f8a.svs",
+  "h5_path": "output/test/anon_24907225-1e13-48d3-9759-f6c5574a0f8a.h5",
+  "num_patches": 392,
+  "patch_size": 973,
+  "level": 0,
+  "tissue_threshold": 0.25,
+  "processing_info": {
+    "timestamp": "2025-09-13T11:17:40.150964",
+    "feature_extraction_time": 42.97414445877075,
+    "titan_encoding_time": 1.3015737533569336,
+    "total_time": 44.275718212127686,
+    "batch_size": 32,
+    "device": "cuda",
+    "optimized_transform": true,
+    "num_workers": 4,
+    "original_patch_size": 973,
+    "target_patch_size": 512,
+    "resized": true
+  },
+  "slide_embedding_shape": [
+    1,
+    768
+  ]
+}
