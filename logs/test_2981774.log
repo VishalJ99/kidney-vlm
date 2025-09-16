@@ -1,0 +1,105 @@
+### Starting TaskPrologue of job 2981774 on a0522 at Tue 16 Sep 14:02:19 CEST 2025
+Running on cores 16-31 with governor ondemand
+Tue Sep 16 14:02:19 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.65.06              Driver Version: 580.65.06      CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A40                     On  |   00000000:25:00.0 Off |                  Off |
+|  0%   33C    P8             21W /  300W |       0MiB /  49140MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+### Finished TaskPrologue
+
+=========================================
+SLURM TEST JOB - Single Case
+=========================================
+Job ID: 2981774
+Node: a0522
+Partition: a40
+CPUs: 8
+Starting at: Tue 16 Sep 14:02:19 CEST 2025
+=========================================
+
+STEP 1: Verify worklist
+-----------------------
+✓ Worklist found: pomi_worklists/test_single_case.txt
+  Content: /anvme/workspace/b180dc29-histopatho/2024-07-03/anon_06535ae1-326b-4bc0-97bc-41734207b0e3.svs
+  Files to process: 1
+
+STEP 2: Test patch extraction (1 file)
+---------------------------------------
+Running extraction command...
+Command:   --batch --output-dir test_output --worklist pomi_worklists/test_single_case.txt --patch-size 973 --tissue-threshold 0.05 --mode contiguous --workers 4 --no-viz
+Running in batch processing mode
+Loading worklist from: pomi_worklists/test_single_case.txt
+Loaded 1 files from worklist (after skipping completed)
+Found 1 WSI files in None
+Using 1 workers
+Output directory: test_output
+
+Processing files...
+Results: test_output/batch_results_20250916_140224.csv
+Errors: test_output/batch_errors_20250916_140224.csv
+Timing: test_output/batch_timing_20250916_140224.csv
+
+✓ [MainProcess] anon_06535ae1-326b-4bc0-97bc-41734207b0e3.svs -> 584 patches (59.3s)
+
+============================================================
+BATCH PROCESSING COMPLETE
+============================================================
+Total time: 59.4 seconds
+Files processed successfully: 1
+Files with errors: 0
+Total patches extracted: 584
+Average patches per file: 584
+Processing speed: 0.02 files/second
+Average time per file: 59.4 seconds
+Parallel efficiency: 1.0x speedup
+
+Results saved to: test_output/batch_results_20250916_140224.csv
+Timing analysis saved to: test_output/batch_timing_20250916_140224.csv
+
+=========================================
+TEST COMPLETED SUCCESSFULLY
+=========================================
+✓ Environment is correctly configured
+✓ Python packages are available
+✓ Extraction script is working
+
+You can now run the full batch with confidence!
+Finished at: Tue 16 Sep 14:03:24 CEST 2025
+=========================================
+=== JOB_STATISTICS ===
+=== current date     : Tue Sep 16 14:03:25 CEST 2025
+= Job-ID             : 2981774 on alex
+= Job-Name           : test_pomi_env
+= Job-Command        : /anvme/workspace/b180dc43-reg2025/kidney-vlm/slurm_test_single_case.sh
+= Initial workdir    : /anvme/workspace/b180dc43-reg2025/kidney-vlm
+= Queue/Partition    : a40
+= Slurm account      : b180dc with QOS=normal
+= Requested resources:  for 00:10:00
+= Elapsed runtime    : 00:01:06
+= Total RAM usage    : 24.5 GiB of assigned  GiB (%)
+= Node list          : a0522
+= Subm/Elig/Start/End: 2025-09-16T14:01:55 / 2025-09-16T14:01:55 / 2025-09-16T14:02:18 / 2025-09-16T14:03:24
+======================
+=== Quota infos ======
+    Path              Used     SoftQ    HardQ    Gracetime  Filec    FileQ    FiHaQ    FileGrace    
+    /home/hpc           60.1G   104.9G   209.7G        N/A     316K     500K   1,000K        N/A    
+    /home/vault          0.0K  1048.6G  2097.2G        N/A       1      200K     400K        N/A    
+    atuin.rrze.uni-erlangen.de:/srv/home     0.0K     0.0K     0.0K        N/A       1                           N/A    
+======================
+=== GPU utilization ==
+gpu_name, gpu_bus_id, pid, gpu_utilization [%], mem_utilization [%], max_memory_usage [MiB], time [ms]

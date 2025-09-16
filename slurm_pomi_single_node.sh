@@ -2,8 +2,9 @@
 #SBATCH --job-name=pomi_hne_split      
 #SBATCH --output=logs/pomi_split_%j.log   
 #SBATCH --error=logs/pomi_split_%j.err    
-#SBATCH --time=24:00:00                
-#SBATCH --partition=compute            
+#SBATCH --time=3:00:00                
+#SBATCH --partition=a40
+#SBATCH --gres=gpu:a40:1
 #SBATCH --cpus-per-task=16             
 # NOTE: No --array directive, no --mem directive (memory not configurable on this cluster)
 
@@ -63,7 +64,7 @@ python3 titan_standalone/extract_patches_coords_vips.py \
     --output-dir "$OUTPUT_DIR" \
     --worklist "$WORKLIST" \
     --patch-size 973 \
-    --tissue-threshold 0.25 \
+    --tissue-threshold 0.05 \
     --mode contiguous \
     --workers 1 
 # Check exit status

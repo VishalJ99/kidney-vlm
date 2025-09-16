@@ -1,0 +1,4 @@
+/var/tmp/slurmd_spool/job2981774/slurm_script: line 51: module: command not found
+Processing WSIs:   0%|          | 0/1 [00:00<?, ?files/s]/anvme/workspace/b180dc29-histopatho/2024-07-03/anon_06535ae1-326b-4bc0-97bc-41734207b0e3.svs: Failed to allocate memory for to read TIFF directory (0 elements of 20 bytes each).
+TIFFReadDirectory: Failed to read directory at offset 654480026.
+                                                         Processing WSIs:   0%|          | 0/1 [00:59<?, ?files/s]Processing WSIs:   0%|          | 0/1 [00:59<?, ?files/s, Success=1, Errors=0, Avg patches=584, Total patches=584]Processing WSIs: 100%|██████████| 1/1 [00:59<00:00, 59.34s/files, Success=1, Errors=0, Avg patches=584, Total patches=584]Processing WSIs: 100%|██████████| 1/1 [00:59<00:00, 59.34s/files, Success=1, Errors=0, Avg patches=584, Total patches=584]

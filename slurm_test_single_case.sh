@@ -2,8 +2,9 @@
 #SBATCH --job-name=test_pomi_env      
 #SBATCH --output=logs/test_%j.log   
 #SBATCH --error=logs/test_%j.err    
-#SBATCH --time=00:30:00              # Only 30 minutes for test
-#SBATCH --partition=compute            
+#SBATCH --time=00:10:00              # Only 30 minutes for test
+#SBATCH --partition=a40
+#SBATCH --gres=gpu:a40:1
 #SBATCH --cpus-per-task=8            # Fewer CPUs for test
 # NOTE: No GPU needed for patch extraction
 
@@ -23,6 +24,7 @@ export PYTHONUNBUFFERED=1
 # Define paths
 WORKLIST="pomi_worklists/test_single_case.txt"
 OUTPUT_DIR="test_output"
+THRESH=0.05
 
 # Create directories
 mkdir -p logs
@@ -50,14 +52,14 @@ module load python
 conda activate titan
 
 echo "Running extraction command..."
-echo "Command: $PYTHON_BIN $SCRIPT_PATH --batch --output-dir $OUTPUT_DIR --worklist $WORKLIST --patch-size 973 --tissue-threshold 0.25 --mode contiguous --workers 4 --no-viz"
+echo "Command: $PYTHON_BIN $SCRIPT_PATH --batch --output-dir $OUTPUT_DIR --worklist $WORKLIST --patch-size 973 --tissue-threshold $THRESH --mode contiguous --workers 4 --no-viz"
 
 python3 titan_standalone/extract_patches_coords_vips.py \
     --batch \
     --output-dir "$OUTPUT_DIR" \
     --worklist "$WORKLIST" \
     --patch-size 973 \
-    --tissue-threshold 0.25 \
+    --tissue-threshold $THRESH \
     --mode contiguous \
     --workers 1 \
 
