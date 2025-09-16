@@ -3,9 +3,8 @@
 #SBATCH --output=logs/pomi_split_%j.log   
 #SBATCH --error=logs/pomi_split_%j.err    
 #SBATCH --time=24:00:00                
-#SBATCH --partition=a40                
-#SBATCH --gres=gpu:a40:1              
-#SBATCH --cpus-per-task=8             
+#SBATCH --partition=compute            
+#SBATCH --cpus-per-task=16             
 # NOTE: No --array directive, no --mem directive (memory not configurable on this cluster)
 
 # Get split number from command line argument
@@ -33,8 +32,7 @@ echo "GPU: $(nvidia-smi -L 2>/dev/null | head -1)"
 echo "Starting at: $(date)"
 echo "========================================="
 
-# Set up environment
-export CUDA_VISIBLE_DEVICES=0
+# Set up environment (no GPU needed for patch extraction)
 export PYTHONUNBUFFERED=1
 
 # Define paths
@@ -54,30 +52,28 @@ echo "Number of files to process: $(wc -l < $WORKLIST)"
 # Create output directory
 mkdir -p "$OUTPUT_DIR"
 
-# Run the TITAN processing
+# Run patch extraction ONLY (foreground processing)
 cd /workspace
 
-echo "Starting TITAN processing..."
-./titan_standalone/get_titan_embeddings_from_wsi.sh \
-    --gpu-id 0 \
+echo "Starting patch extraction (foreground processing only)..."
+/vol/biomedic3/vj724/.conda/envs/titan/bin/python titan_standalone/extract_patches_coords_vips.py \
+    --batch \
+    --output-dir "$OUTPUT_DIR" \
     --worklist "$WORKLIST" \
-    --skip-existing \
-    --batch-size 32 \
-    --workers 4 \
     --patch-size 973 \
-    --target-size 512 \
-    "$OUTPUT_DIR"
+    --tissue-threshold 0.25 \
+    --mode contiguous \
+    --workers 16 \
+    --no-viz
 
 # Check exit status
 if [ $? -eq 0 ]; then
-    echo "Processing completed successfully"
+    echo "Patch extraction completed successfully"
     # Count results
-    EMBEDDINGS_COUNT=$(ls -1 ${OUTPUT_DIR}/*_titan.pt 2>/dev/null | wc -l)
     H5_COUNT=$(ls -1 ${OUTPUT_DIR}/*.h5 2>/dev/null | wc -l)
-    echo "Generated ${EMBEDDINGS_COUNT} TITAN embeddings"
-    echo "Generated ${H5_COUNT} H5 patch files"
+    echo "Generated ${H5_COUNT} H5 patch coordinate files"
 else
-    echo "ERROR: Processing failed with exit code $?"
+    echo "ERROR: Patch extraction failed with exit code $?"
 fi
 
 # Print completion information
