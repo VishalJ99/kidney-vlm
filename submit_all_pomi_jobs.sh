@@ -15,7 +15,7 @@ JOB_IDS=""
 # Submit 10 separate jobs
 for i in {1..10}; do
     # Check if worklist exists before submitting
-    WORKLIST="/workspace/pomi_worklists/hne_10jobs_split_${i}.txt"
+    WORKLIST="pomi_worklists/hne_10jobs_split_${i}.txt"
     if [ ! -f "$WORKLIST" ]; then
         echo "ERROR: Worklist not found: $WORKLIST"
         echo "Skipping split ${i}"

@@ -36,8 +36,8 @@ echo "========================================="
 export PYTHONUNBUFFERED=1
 
 # Define paths
-WORKLIST="/workspace/pomi_worklists/hne_10jobs_split_${SPLIT_NUM}.txt"
-OUTPUT_DIR="/workspace/titan_embeddings/split_${SPLIT_NUM}"
+WORKLIST="pomi_worklists/hne_10jobs_split_${SPLIT_NUM}.txt"
+OUTPUT_DIR="titan_embeddings/split_${SPLIT_NUM}"
 
 # Verify worklist exists
 if [ ! -f "$WORKLIST" ]; then
@@ -56,7 +56,9 @@ mkdir -p "$OUTPUT_DIR"
 cd /workspace
 
 echo "Starting patch extraction (foreground processing only)..."
-/vol/biomedic3/vj724/.conda/envs/titan/bin/python titan_standalone/extract_patches_coords_vips.py \
+module load python
+conda activate titan
+python3 titan_standalone/extract_patches_coords_vips.py \
     --batch \
     --output-dir "$OUTPUT_DIR" \
     --worklist "$WORKLIST" \
