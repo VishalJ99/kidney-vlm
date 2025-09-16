@@ -1,0 +1,199 @@
+filename,wsi_path,error,timestamp,worker_id,start_time,end_time,processing_time
+anon_2f159f92-d454-4034-8cda-e4e6c480bdf9.svs,/vol/biomedic3/histopatho/win_share/2022-01-12/anon_2f159f92-d454-4034-8cda-e4e6c480bdf9.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2022-01-12/anon_2f159f92-d454-4034-8cda-e4e6c480bdf9.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2022-01-12/anon_2f159f92-d454-4034-8cda-e4e6c480bdf9.svs"" does not exist
+",2025-09-15T17:33:48.427427,ForkPoolWorker-1,2025-09-15T17:33:48.399953,2025-09-15T17:33:48.427427,0.027472351910546422
+anon_3887010c-c7d6-453e-a8a1-631e503d748d.svs,/vol/biomedic3/histopatho/win_share/2022-01-12/anon_3887010c-c7d6-453e-a8a1-631e503d748d.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2022-01-12/anon_3887010c-c7d6-453e-a8a1-631e503d748d.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2022-01-12/anon_3887010c-c7d6-453e-a8a1-631e503d748d.svs"" does not exist
+",2025-09-15T17:33:48.427702,ForkPoolWorker-1,2025-09-15T17:33:48.427629,2025-09-15T17:33:48.427702,7.33700580894947e-05
+anon_1813bea4-d116-4fd9-9a48-44b3f2a89360.svs,/vol/biomedic3/histopatho/win_share/2022-01-12/anon_1813bea4-d116-4fd9-9a48-44b3f2a89360.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2022-01-12/anon_1813bea4-d116-4fd9-9a48-44b3f2a89360.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2022-01-12/anon_1813bea4-d116-4fd9-9a48-44b3f2a89360.svs"" does not exist
+",2025-09-15T17:44:22.431333,ForkPoolWorker-2,2025-09-15T17:44:22.431151,2025-09-15T17:44:22.431333,0.00018209591507911682
+anon_5501d2f4-660b-4102-aece-5eed43e79d74.svs,/vol/biomedic3/histopatho/win_share/2024-07-10/anon_5501d2f4-660b-4102-aece-5eed43e79d74.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2024-07-10/anon_5501d2f4-660b-4102-aece-5eed43e79d74.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2024-07-10/anon_5501d2f4-660b-4102-aece-5eed43e79d74.svs"" does not exist
+",2025-09-15T18:09:13.525093,ForkPoolWorker-2,2025-09-15T18:09:13.510233,2025-09-15T18:09:13.525093,0.014858972048386931
+anon_1f659897-5485-4747-88a3-e78d3777df5c.svs,/vol/biomedic3/histopatho/win_share/2024-07-10/anon_1f659897-5485-4747-88a3-e78d3777df5c.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2024-07-10/anon_1f659897-5485-4747-88a3-e78d3777df5c.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2024-07-10/anon_1f659897-5485-4747-88a3-e78d3777df5c.svs"" does not exist
+",2025-09-15T18:09:13.525292,ForkPoolWorker-2,2025-09-15T18:09:13.525216,2025-09-15T18:09:13.525292,7.629184983670712e-05
+anon_146e84ef-5a85-4976-9ec7-40dd7f4c28cb.svs,/vol/biomedic3/histopatho/win_share/2024-07-10/anon_146e84ef-5a85-4976-9ec7-40dd7f4c28cb.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2024-07-10/anon_146e84ef-5a85-4976-9ec7-40dd7f4c28cb.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2024-07-10/anon_146e84ef-5a85-4976-9ec7-40dd7f4c28cb.svs"" does not exist
+",2025-09-15T18:09:13.525424,ForkPoolWorker-2,2025-09-15T18:09:13.525369,2025-09-15T18:09:13.525424,5.5385055020451546e-05
+anon_0a71f3fc-78ea-4779-a740-c5212ae14e31.svs,/vol/biomedic3/histopatho/win_share/2024-07-10/anon_0a71f3fc-78ea-4779-a740-c5212ae14e31.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2024-07-10/anon_0a71f3fc-78ea-4779-a740-c5212ae14e31.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2024-07-10/anon_0a71f3fc-78ea-4779-a740-c5212ae14e31.svs"" does not exist
+",2025-09-15T18:09:13.525543,ForkPoolWorker-2,2025-09-15T18:09:13.525493,2025-09-15T18:09:13.525543,4.943902604281902e-05
+anon_303c0ee5-3ba3-4c41-9943-54bafddd8b48.svs,/vol/biomedic3/histopatho/win_share/2024-07-10/anon_303c0ee5-3ba3-4c41-9943-54bafddd8b48.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2024-07-10/anon_303c0ee5-3ba3-4c41-9943-54bafddd8b48.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2024-07-10/anon_303c0ee5-3ba3-4c41-9943-54bafddd8b48.svs"" does not exist
+",2025-09-15T18:09:13.525659,ForkPoolWorker-2,2025-09-15T18:09:13.525611,2025-09-15T18:09:13.525659,4.843715578317642e-05
+anon_0f7b4eb7-3e03-479f-8830-00be24dbf73c.svs,/vol/biomedic3/histopatho/win_share/2024-07-10/anon_0f7b4eb7-3e03-479f-8830-00be24dbf73c.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2024-07-10/anon_0f7b4eb7-3e03-479f-8830-00be24dbf73c.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2024-07-10/anon_0f7b4eb7-3e03-479f-8830-00be24dbf73c.svs"" does not exist
+",2025-09-15T18:09:13.525771,ForkPoolWorker-2,2025-09-15T18:09:13.525722,2025-09-15T18:09:13.525771,4.929606802761555e-05
+anon_03e794d7-9779-495b-9aba-07bd51eeb9c4.svs,/vol/biomedic3/histopatho/win_share/2024-07-10/anon_03e794d7-9779-495b-9aba-07bd51eeb9c4.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2024-07-10/anon_03e794d7-9779-495b-9aba-07bd51eeb9c4.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2024-07-10/anon_03e794d7-9779-495b-9aba-07bd51eeb9c4.svs"" does not exist
+",2025-09-15T18:09:13.525904,ForkPoolWorker-2,2025-09-15T18:09:13.525853,2025-09-15T18:09:13.525904,5.161203444004059e-05
+anon_227c0bd6-eb43-47a2-b64f-367fc50a3c3a.svs,/vol/biomedic3/histopatho/win_share/2022-04-06/anon_227c0bd6-eb43-47a2-b64f-367fc50a3c3a.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2022-04-06/anon_227c0bd6-eb43-47a2-b64f-367fc50a3c3a.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2022-04-06/anon_227c0bd6-eb43-47a2-b64f-367fc50a3c3a.svs"" does not exist
+",2025-09-15T18:09:13.548455,ForkPoolWorker-2,2025-09-15T18:09:13.525970,2025-09-15T18:09:13.548455,0.02248379308730364
+anon_891ab781-140b-4b60-b0ef-a05704580a7e.svs,/vol/biomedic3/histopatho/win_share/2024-07-10/anon_891ab781-140b-4b60-b0ef-a05704580a7e.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2024-07-10/anon_891ab781-140b-4b60-b0ef-a05704580a7e.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2024-07-10/anon_891ab781-140b-4b60-b0ef-a05704580a7e.svs"" does not exist
+",2025-09-15T18:09:13.548806,ForkPoolWorker-2,2025-09-15T18:09:13.548667,2025-09-15T18:09:13.548806,0.00013962294906377792
+anon_1b674f93-1659-4338-97f6-07fc0d724f17.svs,/vol/biomedic3/histopatho/win_share/2024-07-10/anon_1b674f93-1659-4338-97f6-07fc0d724f17.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2024-07-10/anon_1b674f93-1659-4338-97f6-07fc0d724f17.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2024-07-10/anon_1b674f93-1659-4338-97f6-07fc0d724f17.svs"" does not exist
+",2025-09-15T18:09:13.549067,ForkPoolWorker-2,2025-09-15T18:09:13.548964,2025-09-15T18:09:13.549067,0.00010375306010246277
+anon_15546c16-119a-4a46-91f3-e1e8e07b0004.svs,/vol/biomedic3/histopatho/win_share/2024-07-10/anon_15546c16-119a-4a46-91f3-e1e8e07b0004.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2024-07-10/anon_15546c16-119a-4a46-91f3-e1e8e07b0004.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2024-07-10/anon_15546c16-119a-4a46-91f3-e1e8e07b0004.svs"" does not exist
+",2025-09-15T18:28:21.857097,ForkPoolWorker-1,2025-09-15T18:28:21.856905,2025-09-15T18:28:21.857097,0.00019237701781094074
+anon_5c1f7878-345d-4b1e-895d-f32d1a695459.svs,/vol/biomedic3/histopatho/win_share/2024-07-10/anon_5c1f7878-345d-4b1e-895d-f32d1a695459.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2024-07-10/anon_5c1f7878-345d-4b1e-895d-f32d1a695459.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2024-07-10/anon_5c1f7878-345d-4b1e-895d-f32d1a695459.svs"" does not exist
+",2025-09-15T18:48:36.350091,ForkPoolWorker-2,2025-09-15T18:48:36.349856,2025-09-15T18:48:36.350091,0.0002348390407860279
+anon_a53eb785-32f8-4a2b-a01b-006dbb3c3fe7.svs,/vol/biomedic3/histopatho/win_share/2024-07-10/anon_a53eb785-32f8-4a2b-a01b-006dbb3c3fe7.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2024-07-10/anon_a53eb785-32f8-4a2b-a01b-006dbb3c3fe7.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2024-07-10/anon_a53eb785-32f8-4a2b-a01b-006dbb3c3fe7.svs"" does not exist
+",2025-09-15T18:48:36.350243,ForkPoolWorker-2,2025-09-15T18:48:36.350186,2025-09-15T18:48:36.350243,5.7484954595565796e-05
+anon_c6b6468d-b561-425e-ad9d-b11e17e5301e.svs,/vol/biomedic3/histopatho/win_share/2024-07-10/anon_c6b6468d-b561-425e-ad9d-b11e17e5301e.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2024-07-10/anon_c6b6468d-b561-425e-ad9d-b11e17e5301e.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2024-07-10/anon_c6b6468d-b561-425e-ad9d-b11e17e5301e.svs"" does not exist
+",2025-09-15T18:48:36.350351,ForkPoolWorker-2,2025-09-15T18:48:36.350305,2025-09-15T18:48:36.350351,4.615704528987408e-05
+anon_09462cdb-1a3e-4dec-9698-6170bb8ecc1b.svs,/vol/biomedic3/histopatho/win_share/2024-07-10/anon_09462cdb-1a3e-4dec-9698-6170bb8ecc1b.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2024-07-10/anon_09462cdb-1a3e-4dec-9698-6170bb8ecc1b.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2024-07-10/anon_09462cdb-1a3e-4dec-9698-6170bb8ecc1b.svs"" does not exist
+",2025-09-15T18:48:36.350450,ForkPoolWorker-2,2025-09-15T18:48:36.350408,2025-09-15T18:48:36.350450,4.187994636595249e-05
+anon_e153751b-4bb2-4e61-9ac6-0145010c4b81.svs,/vol/biomedic3/histopatho/win_share/2024-07-10/anon_e153751b-4bb2-4e61-9ac6-0145010c4b81.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2024-07-10/anon_e153751b-4bb2-4e61-9ac6-0145010c4b81.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2024-07-10/anon_e153751b-4bb2-4e61-9ac6-0145010c4b81.svs"" does not exist
+",2025-09-15T18:48:36.350546,ForkPoolWorker-2,2025-09-15T18:48:36.350502,2025-09-15T18:48:36.350546,4.4454121962189674e-05
+anon_34576336-4f4f-4db6-a32b-cf44e813560a.svs,/vol/biomedic3/histopatho/win_share/2024-07-10/anon_34576336-4f4f-4db6-a32b-cf44e813560a.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2024-07-10/anon_34576336-4f4f-4db6-a32b-cf44e813560a.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2024-07-10/anon_34576336-4f4f-4db6-a32b-cf44e813560a.svs"" does not exist
+",2025-09-15T18:48:36.350643,ForkPoolWorker-2,2025-09-15T18:48:36.350603,2025-09-15T18:48:36.350643,3.9594946429133415e-05
+anon_0b909873-9ef8-4230-86d5-ce7b478be4cb.svs,/vol/biomedic3/histopatho/win_share/2022-05-23/anon_0b909873-9ef8-4230-86d5-ce7b478be4cb.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2022-05-23/anon_0b909873-9ef8-4230-86d5-ce7b478be4cb.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2022-05-23/anon_0b909873-9ef8-4230-86d5-ce7b478be4cb.svs"" does not exist
+",2025-09-15T19:45:34.638271,ForkPoolWorker-1,2025-09-15T19:45:34.617445,2025-09-15T19:45:34.638271,0.02082362794317305
+anon_494d43f4-e599-43d5-8d80-7ecddd6d4612.svs,/vol/biomedic3/histopatho/win_share/2022-05-23/anon_494d43f4-e599-43d5-8d80-7ecddd6d4612.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2022-05-23/anon_494d43f4-e599-43d5-8d80-7ecddd6d4612.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2022-05-23/anon_494d43f4-e599-43d5-8d80-7ecddd6d4612.svs"" does not exist
+",2025-09-15T19:45:34.638872,ForkPoolWorker-1,2025-09-15T19:45:34.638637,2025-09-15T19:45:34.638872,0.00023541809059679508
+anon_6722dfc9-0ac7-4f11-85f1-cc73acb3ca49.svs,/vol/biomedic3/histopatho/win_share/2022-07-27/anon_6722dfc9-0ac7-4f11-85f1-cc73acb3ca49.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2022-07-27/anon_6722dfc9-0ac7-4f11-85f1-cc73acb3ca49.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2022-07-27/anon_6722dfc9-0ac7-4f11-85f1-cc73acb3ca49.svs"" does not exist
+",2025-09-15T21:32:19.691206,ForkPoolWorker-2,2025-09-15T21:32:19.675384,2025-09-15T21:32:19.691206,0.01581992208957672
+anon_068fcd62-61d9-43ea-8936-87bf901f362b.svs,/vol/biomedic3/histopatho/win_share/2022-07-26/anon_068fcd62-61d9-43ea-8936-87bf901f362b.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2022-07-26/anon_068fcd62-61d9-43ea-8936-87bf901f362b.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2022-07-26/anon_068fcd62-61d9-43ea-8936-87bf901f362b.svs"" does not exist
+",2025-09-15T21:32:19.693177,ForkPoolWorker-2,2025-09-15T21:32:19.691545,2025-09-15T21:32:19.693177,0.0016312580555677414
+anon_17cc5999-8b5d-436b-865e-6822de98f09f.svs,/vol/biomedic3/histopatho/win_share/2022-07-27/anon_17cc5999-8b5d-436b-865e-6822de98f09f.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2022-07-27/anon_17cc5999-8b5d-436b-865e-6822de98f09f.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2022-07-27/anon_17cc5999-8b5d-436b-865e-6822de98f09f.svs"" does not exist
+",2025-09-15T21:32:19.693673,ForkPoolWorker-2,2025-09-15T21:32:19.693474,2025-09-15T21:32:19.693673,0.00019931094720959663
+anon_36594106-3aff-4eee-a8e9-7ff9cd6785e4.svs,/vol/biomedic3/histopatho/win_share/2022-07-28/anon_36594106-3aff-4eee-a8e9-7ff9cd6785e4.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2022-07-28/anon_36594106-3aff-4eee-a8e9-7ff9cd6785e4.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2022-07-28/anon_36594106-3aff-4eee-a8e9-7ff9cd6785e4.svs"" does not exist
+",2025-09-15T21:32:19.696385,ForkPoolWorker-2,2025-09-15T21:32:19.693904,2025-09-15T21:32:19.696385,0.00247833295725286
+anon_31534bc9-4e57-45f3-8582-425c1a5252c7.svs,/vol/biomedic3/histopatho/win_share/2022-07-28/anon_31534bc9-4e57-45f3-8582-425c1a5252c7.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2022-07-28/anon_31534bc9-4e57-45f3-8582-425c1a5252c7.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2022-07-28/anon_31534bc9-4e57-45f3-8582-425c1a5252c7.svs"" does not exist
+",2025-09-15T21:32:19.696889,ForkPoolWorker-2,2025-09-15T21:32:19.696673,2025-09-15T21:32:19.696889,0.00021593808196485043
+anon_7d5a161d-3f40-4315-b293-bec114556514.svs,/vol/biomedic3/histopatho/win_share/2022-07-29/anon_7d5a161d-3f40-4315-b293-bec114556514.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2022-07-29/anon_7d5a161d-3f40-4315-b293-bec114556514.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2022-07-29/anon_7d5a161d-3f40-4315-b293-bec114556514.svs"" does not exist
+",2025-09-15T21:34:02.805333,ForkPoolWorker-1,2025-09-15T21:34:02.783796,2025-09-15T21:34:02.805333,0.021534936036914587
+anon_b9ed5d14-e6b3-4577-b699-866b846799e8.svs,/vol/biomedic3/histopatho/win_share/2023-05-29/anon_b9ed5d14-e6b3-4577-b699-866b846799e8.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-05-29/anon_b9ed5d14-e6b3-4577-b699-866b846799e8.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-05-29/anon_b9ed5d14-e6b3-4577-b699-866b846799e8.svs"" does not exist
+",2025-09-16T03:13:58.365832,ForkPoolWorker-2,2025-09-16T03:13:58.342860,2025-09-16T03:13:58.365832,0.022968576988205314
+anon_42ce3a56-25ff-40f4-aad7-7e6aefd74683.svs,/vol/biomedic3/histopatho/win_share/2023-05-29/anon_42ce3a56-25ff-40f4-aad7-7e6aefd74683.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-05-29/anon_42ce3a56-25ff-40f4-aad7-7e6aefd74683.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-05-29/anon_42ce3a56-25ff-40f4-aad7-7e6aefd74683.svs"" does not exist
+",2025-09-16T03:30:47.174215,ForkPoolWorker-2,2025-09-16T03:30:47.173833,2025-09-16T03:30:47.174215,0.00038231397047638893
+anon_6afa838f-d418-4982-96ed-b59c8c58ca4c.svs,/vol/biomedic3/histopatho/win_share/2023-05-29/anon_6afa838f-d418-4982-96ed-b59c8c58ca4c.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-05-29/anon_6afa838f-d418-4982-96ed-b59c8c58ca4c.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-05-29/anon_6afa838f-d418-4982-96ed-b59c8c58ca4c.svs"" does not exist
+",2025-09-16T03:30:47.174393,ForkPoolWorker-2,2025-09-16T03:30:47.174321,2025-09-16T03:30:47.174393,7.19618983566761e-05
+anon_024a6913-4084-4d6d-92b2-a5509dcc190f.svs,/vol/biomedic3/histopatho/win_share/2023-08-14/anon_024a6913-4084-4d6d-92b2-a5509dcc190f.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-08-14/anon_024a6913-4084-4d6d-92b2-a5509dcc190f.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-08-14/anon_024a6913-4084-4d6d-92b2-a5509dcc190f.svs"" does not exist
+",2025-09-16T03:30:47.178671,ForkPoolWorker-2,2025-09-16T03:30:47.174462,2025-09-16T03:30:47.178671,0.004207156831398606
+anon_1a755970-a790-4080-b8e6-1d8f184cb266.svs,/vol/biomedic3/histopatho/win_share/2023-03-30/anon_1a755970-a790-4080-b8e6-1d8f184cb266.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-03-30/anon_1a755970-a790-4080-b8e6-1d8f184cb266.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-03-30/anon_1a755970-a790-4080-b8e6-1d8f184cb266.svs"" does not exist
+",2025-09-16T03:30:47.225730,ForkPoolWorker-2,2025-09-16T03:30:47.178836,2025-09-16T03:30:47.225730,0.046890928875654936
+anon_ea21c99b-c118-4b21-ae75-e8b29a9169e3.svs,/vol/biomedic3/histopatho/win_share/2023-04-14/anon_ea21c99b-c118-4b21-ae75-e8b29a9169e3.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-04-14/anon_ea21c99b-c118-4b21-ae75-e8b29a9169e3.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-04-14/anon_ea21c99b-c118-4b21-ae75-e8b29a9169e3.svs"" does not exist
+",2025-09-16T03:30:47.228016,ForkPoolWorker-2,2025-09-16T03:30:47.226489,2025-09-16T03:30:47.228016,0.0015271161682903767
+anon_dda861bb-d237-474e-ab5f-0a739591809c.svs,/vol/biomedic3/histopatho/win_share/2023-08-14/anon_dda861bb-d237-474e-ab5f-0a739591809c.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-08-14/anon_dda861bb-d237-474e-ab5f-0a739591809c.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-08-14/anon_dda861bb-d237-474e-ab5f-0a739591809c.svs"" does not exist
+",2025-09-16T03:30:47.228739,ForkPoolWorker-2,2025-09-16T03:30:47.228407,2025-09-16T03:30:47.228739,0.0003493400290608406
+anon_4d4c548b-fea9-477a-9dae-b7f90a3aa842.svs,/vol/biomedic3/histopatho/win_share/2023-03-30/anon_4d4c548b-fea9-477a-9dae-b7f90a3aa842.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-03-30/anon_4d4c548b-fea9-477a-9dae-b7f90a3aa842.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-03-30/anon_4d4c548b-fea9-477a-9dae-b7f90a3aa842.svs"" does not exist
+",2025-09-16T03:30:47.231565,ForkPoolWorker-2,2025-09-16T03:30:47.229045,2025-09-16T03:30:47.231565,0.0025203698314726353
+anon_10335c86-a9b6-4460-9079-2778bff41774.svs,/vol/biomedic3/histopatho/win_share/2023-03-30/anon_10335c86-a9b6-4460-9079-2778bff41774.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-03-30/anon_10335c86-a9b6-4460-9079-2778bff41774.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-03-30/anon_10335c86-a9b6-4460-9079-2778bff41774.svs"" does not exist
+",2025-09-16T03:30:47.234692,ForkPoolWorker-2,2025-09-16T03:30:47.231948,2025-09-16T03:30:47.234692,0.002743738004937768
+anon_339f1e3f-3f67-43ee-b915-b1ec66bdf031.svs,/vol/biomedic3/histopatho/win_share/2023-05-12/anon_339f1e3f-3f67-43ee-b915-b1ec66bdf031.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-05-12/anon_339f1e3f-3f67-43ee-b915-b1ec66bdf031.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-05-12/anon_339f1e3f-3f67-43ee-b915-b1ec66bdf031.svs"" does not exist
+",2025-09-16T03:30:47.258139,ForkPoolWorker-2,2025-09-16T03:30:47.234996,2025-09-16T03:30:47.258139,0.02314155292697251
+anon_103a3d71-3c3e-4322-b2ed-63d9467b1277.svs,/vol/biomedic3/histopatho/win_share/2023-03-30/anon_103a3d71-3c3e-4322-b2ed-63d9467b1277.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-03-30/anon_103a3d71-3c3e-4322-b2ed-63d9467b1277.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-03-30/anon_103a3d71-3c3e-4322-b2ed-63d9467b1277.svs"" does not exist
+",2025-09-16T03:30:47.280936,ForkPoolWorker-2,2025-09-16T03:30:47.258867,2025-09-16T03:30:47.280936,0.022068430902436376
+anon_fc5f9d74-bf37-4379-8f6f-650070a4474c.svs,/vol/biomedic3/histopatho/win_share/2023-08-14/anon_fc5f9d74-bf37-4379-8f6f-650070a4474c.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-08-14/anon_fc5f9d74-bf37-4379-8f6f-650070a4474c.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-08-14/anon_fc5f9d74-bf37-4379-8f6f-650070a4474c.svs"" does not exist
+",2025-09-16T03:30:47.281669,ForkPoolWorker-2,2025-09-16T03:30:47.281378,2025-09-16T03:30:47.281669,0.00029211491346359253
+anon_09ee2504-297e-4af8-97f5-fa95911f70da.svs,/vol/biomedic3/histopatho/win_share/2023-03-30/anon_09ee2504-297e-4af8-97f5-fa95911f70da.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-03-30/anon_09ee2504-297e-4af8-97f5-fa95911f70da.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-03-30/anon_09ee2504-297e-4af8-97f5-fa95911f70da.svs"" does not exist
+",2025-09-16T03:30:47.284726,ForkPoolWorker-2,2025-09-16T03:30:47.282029,2025-09-16T03:30:47.284726,0.0027027179021388292
+anon_c4d8ceaf-55d7-4bdd-adba-c93ee025ca1c.svs,/vol/biomedic3/histopatho/win_share/2023-06-09/anon_c4d8ceaf-55d7-4bdd-adba-c93ee025ca1c.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-06-09/anon_c4d8ceaf-55d7-4bdd-adba-c93ee025ca1c.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-06-09/anon_c4d8ceaf-55d7-4bdd-adba-c93ee025ca1c.svs"" does not exist
+",2025-09-16T03:56:16.438953,ForkPoolWorker-1,2025-09-16T03:56:16.436109,2025-09-16T03:56:16.438953,0.002843610942363739
+anon_0d34bec2-dd56-4683-9ece-feec74df2f85.svs,/vol/biomedic3/histopatho/win_share/2023-06-09/anon_0d34bec2-dd56-4683-9ece-feec74df2f85.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-06-09/anon_0d34bec2-dd56-4683-9ece-feec74df2f85.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-06-09/anon_0d34bec2-dd56-4683-9ece-feec74df2f85.svs"" does not exist
+",2025-09-16T04:14:18.554962,ForkPoolWorker-1,2025-09-16T04:14:18.554771,2025-09-16T04:14:18.554962,0.00019130203872919083
+anon_49d2c11d-4a38-4b0d-9650-b2064908ca57.svs,/vol/biomedic3/histopatho/win_share/2023-06-09/anon_49d2c11d-4a38-4b0d-9650-b2064908ca57.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-06-09/anon_49d2c11d-4a38-4b0d-9650-b2064908ca57.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-06-09/anon_49d2c11d-4a38-4b0d-9650-b2064908ca57.svs"" does not exist
+",2025-09-16T04:14:18.555226,ForkPoolWorker-1,2025-09-16T04:14:18.555169,2025-09-16T04:14:18.555226,5.6658871471881866e-05
+anon_23ee9265-c54f-4356-8719-5a1a19ed62b2.svs,/vol/biomedic3/histopatho/win_share/2023-06-09/anon_23ee9265-c54f-4356-8719-5a1a19ed62b2.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-06-09/anon_23ee9265-c54f-4356-8719-5a1a19ed62b2.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-06-09/anon_23ee9265-c54f-4356-8719-5a1a19ed62b2.svs"" does not exist
+",2025-09-16T04:14:18.555312,ForkPoolWorker-1,2025-09-16T04:14:18.555275,2025-09-16T04:14:18.555312,3.756699152290821e-05
+anon_1c02914b-198b-47a5-92c1-530e4e30e88e.svs,/vol/biomedic3/histopatho/win_share/2023-04-04/anon_1c02914b-198b-47a5-92c1-530e4e30e88e.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-04-04/anon_1c02914b-198b-47a5-92c1-530e4e30e88e.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-04-04/anon_1c02914b-198b-47a5-92c1-530e4e30e88e.svs"" does not exist
+",2025-09-16T04:22:44.458626,ForkPoolWorker-2,2025-09-16T04:22:44.452818,2025-09-16T04:22:44.458626,0.005806470988318324
+anon_52a40014-3d24-490d-8cf1-d56c9635df28.svs,/vol/biomedic3/histopatho/win_share/2023-05-29/anon_52a40014-3d24-490d-8cf1-d56c9635df28.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-05-29/anon_52a40014-3d24-490d-8cf1-d56c9635df28.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-05-29/anon_52a40014-3d24-490d-8cf1-d56c9635df28.svs"" does not exist
+",2025-09-16T04:22:44.459872,ForkPoolWorker-2,2025-09-16T04:22:44.459798,2025-09-16T04:22:44.459872,7.375399582087994e-05
+anon_013c8df0-d699-4880-92e4-949945954614.svs,/vol/biomedic3/histopatho/win_share/2023-05-29/anon_013c8df0-d699-4880-92e4-949945954614.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-05-29/anon_013c8df0-d699-4880-92e4-949945954614.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-05-29/anon_013c8df0-d699-4880-92e4-949945954614.svs"" does not exist
+",2025-09-16T04:22:44.459991,ForkPoolWorker-2,2025-09-16T04:22:44.459943,2025-09-16T04:22:44.459991,4.8174988478422165e-05
+anon_21fbed66-8f0c-4051-9ecb-c4fcd7853687.svs,/vol/biomedic3/histopatho/win_share/2022-12-22/anon_21fbed66-8f0c-4051-9ecb-c4fcd7853687.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2022-12-22/anon_21fbed66-8f0c-4051-9ecb-c4fcd7853687.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2022-12-22/anon_21fbed66-8f0c-4051-9ecb-c4fcd7853687.svs"" does not exist
+",2025-09-16T04:22:44.461257,ForkPoolWorker-2,2025-09-16T04:22:44.460053,2025-09-16T04:22:44.461257,0.0012042350135743618
+anon_4de12cb8-dcba-4ecb-b5a2-46136b64fd50.svs,/vol/biomedic3/histopatho/win_share/2022-12-22/anon_4de12cb8-dcba-4ecb-b5a2-46136b64fd50.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2022-12-22/anon_4de12cb8-dcba-4ecb-b5a2-46136b64fd50.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2022-12-22/anon_4de12cb8-dcba-4ecb-b5a2-46136b64fd50.svs"" does not exist
+",2025-09-16T04:22:44.461525,ForkPoolWorker-2,2025-09-16T04:22:44.461468,2025-09-16T04:22:44.461525,5.672406405210495e-05
+anon_699723c5-9335-4552-93df-bc5e290f693d.svs,/vol/biomedic3/histopatho/win_share/2022-12-22/anon_699723c5-9335-4552-93df-bc5e290f693d.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2022-12-22/anon_699723c5-9335-4552-93df-bc5e290f693d.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2022-12-22/anon_699723c5-9335-4552-93df-bc5e290f693d.svs"" does not exist
+",2025-09-16T04:22:44.461634,ForkPoolWorker-2,2025-09-16T04:22:44.461589,2025-09-16T04:22:44.461634,4.509603604674339e-05
+anon_246a88de-dc77-44ac-96df-4e47bcf9b42e.svs,/vol/biomedic3/histopatho/win_share/2022-12-28/anon_246a88de-dc77-44ac-96df-4e47bcf9b42e.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2022-12-28/anon_246a88de-dc77-44ac-96df-4e47bcf9b42e.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2022-12-28/anon_246a88de-dc77-44ac-96df-4e47bcf9b42e.svs"" does not exist
+",2025-09-16T04:30:34.478160,ForkPoolWorker-1,2025-09-16T04:30:34.449365,2025-09-16T04:30:34.478160,0.02879268815740943
+anon_1461269b-9338-4a43-a255-2bb73dee974e.svs,/vol/biomedic3/histopatho/win_share/2023-05-12/anon_1461269b-9338-4a43-a255-2bb73dee974e.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-05-12/anon_1461269b-9338-4a43-a255-2bb73dee974e.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-05-12/anon_1461269b-9338-4a43-a255-2bb73dee974e.svs"" does not exist
+",2025-09-16T04:30:34.480105,ForkPoolWorker-1,2025-09-16T04:30:34.478691,2025-09-16T04:30:34.480105,0.0014130771160125732
+anon_1ea0a7e0-9ead-4735-bd9a-c2c93329c018.svs,/vol/biomedic3/histopatho/win_share/2023-05-12/anon_1ea0a7e0-9ead-4735-bd9a-c2c93329c018.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-05-12/anon_1ea0a7e0-9ead-4735-bd9a-c2c93329c018.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-05-12/anon_1ea0a7e0-9ead-4735-bd9a-c2c93329c018.svs"" does not exist
+",2025-09-16T04:30:34.480603,ForkPoolWorker-1,2025-09-16T04:30:34.480406,2025-09-16T04:30:34.480603,0.00019727717153728008
+anon_396cd0c5-99c1-4a67-92ed-bea46cc3784a.svs,/vol/biomedic3/histopatho/win_share/2023-04-04/anon_396cd0c5-99c1-4a67-92ed-bea46cc3784a.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-04-04/anon_396cd0c5-99c1-4a67-92ed-bea46cc3784a.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-04-04/anon_396cd0c5-99c1-4a67-92ed-bea46cc3784a.svs"" does not exist
+",2025-09-16T04:33:11.361911,ForkPoolWorker-2,2025-09-16T04:33:11.361722,2025-09-16T04:33:11.361911,0.00018860981799662113
+anon_3af6dfb2-d46b-4c22-b19e-cfd7318ec418.svs,/vol/biomedic3/histopatho/win_share/2023-08-14/anon_3af6dfb2-d46b-4c22-b19e-cfd7318ec418.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-08-14/anon_3af6dfb2-d46b-4c22-b19e-cfd7318ec418.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-08-14/anon_3af6dfb2-d46b-4c22-b19e-cfd7318ec418.svs"" does not exist
+",2025-09-16T04:33:11.373883,ForkPoolWorker-2,2025-09-16T04:33:11.362024,2025-09-16T04:33:11.373883,0.011858238838613033
+anon_0e17845a-2c5b-4127-ae8c-8355cd6f357f.svs,/vol/biomedic3/histopatho/win_share/2023-02-10/anon_0e17845a-2c5b-4127-ae8c-8355cd6f357f.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-02-10/anon_0e17845a-2c5b-4127-ae8c-8355cd6f357f.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-02-10/anon_0e17845a-2c5b-4127-ae8c-8355cd6f357f.svs"" does not exist
+",2025-09-16T04:33:11.396211,ForkPoolWorker-2,2025-09-16T04:33:11.374186,2025-09-16T04:33:11.396211,0.022021676180884242
+anon_0d19d94b-827e-49cd-833e-92910aca8510.svs,/vol/biomedic3/histopatho/win_share/2023-03-31/anon_0d19d94b-827e-49cd-833e-92910aca8510.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-03-31/anon_0d19d94b-827e-49cd-833e-92910aca8510.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-03-31/anon_0d19d94b-827e-49cd-833e-92910aca8510.svs"" does not exist
+",2025-09-16T04:36:50.287229,ForkPoolWorker-1,2025-09-16T04:36:50.269872,2025-09-16T04:36:50.287229,0.017354211071506143
+anon_d1c63fcc-cdc7-4f4a-b1c1-2b9258739dad.svs,/vol/biomedic3/histopatho/win_share/2023-03-14/anon_d1c63fcc-cdc7-4f4a-b1c1-2b9258739dad.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-03-14/anon_d1c63fcc-cdc7-4f4a-b1c1-2b9258739dad.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-03-14/anon_d1c63fcc-cdc7-4f4a-b1c1-2b9258739dad.svs"" does not exist
+",2025-09-16T05:17:12.156185,ForkPoolWorker-2,2025-09-16T05:17:12.138159,2025-09-16T05:17:12.156185,0.018023604061454535
+anon_f93ac9d2-b676-4a2b-b768-f4c3ae84f4b8.svs,/vol/biomedic3/histopatho/win_share/2023-03-14/anon_f93ac9d2-b676-4a2b-b768-f4c3ae84f4b8.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-03-14/anon_f93ac9d2-b676-4a2b-b768-f4c3ae84f4b8.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-03-14/anon_f93ac9d2-b676-4a2b-b768-f4c3ae84f4b8.svs"" does not exist
+",2025-09-16T05:29:20.928624,ForkPoolWorker-2,2025-09-16T05:29:20.928515,2025-09-16T05:29:20.928624,0.00010930607095360756
+anon_50e13a2e-8fba-4734-99a4-b52701038d1a.svs,/vol/biomedic3/histopatho/win_share/2023-03-31/anon_50e13a2e-8fba-4734-99a4-b52701038d1a.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-03-31/anon_50e13a2e-8fba-4734-99a4-b52701038d1a.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-03-31/anon_50e13a2e-8fba-4734-99a4-b52701038d1a.svs"" does not exist
+",2025-09-16T06:02:35.222020,ForkPoolWorker-2,2025-09-16T06:02:35.221853,2025-09-16T06:02:35.222020,0.00016737799160182476
+anon_4b37e3c5-4ed5-41f1-8c8a-373fe3298963.svs,/vol/biomedic3/histopatho/win_share/2023-03-31/anon_4b37e3c5-4ed5-41f1-8c8a-373fe3298963.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-03-31/anon_4b37e3c5-4ed5-41f1-8c8a-373fe3298963.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-03-31/anon_4b37e3c5-4ed5-41f1-8c8a-373fe3298963.svs"" does not exist
+",2025-09-16T06:02:35.222154,ForkPoolWorker-2,2025-09-16T06:02:35.222112,2025-09-16T06:02:35.222154,4.164618439972401e-05
+anon_3afec0a8-4f15-467f-800c-173104f551b2.svs,/vol/biomedic3/histopatho/win_share/2023-04-05/anon_3afec0a8-4f15-467f-800c-173104f551b2.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-04-05/anon_3afec0a8-4f15-467f-800c-173104f551b2.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-04-05/anon_3afec0a8-4f15-467f-800c-173104f551b2.svs"" does not exist
+",2025-09-16T07:34:53.554380,ForkPoolWorker-1,2025-09-16T07:34:53.494744,2025-09-16T07:34:53.554380,0.059634142089635134
+anon_03d5c482-fba4-4e37-bc9c-7c0b0d059a76.svs,/vol/biomedic3/histopatho/win_share/2023-04-29/anon_03d5c482-fba4-4e37-bc9c-7c0b0d059a76.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-04-29/anon_03d5c482-fba4-4e37-bc9c-7c0b0d059a76.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-04-29/anon_03d5c482-fba4-4e37-bc9c-7c0b0d059a76.svs"" does not exist
+",2025-09-16T08:35:18.779945,ForkPoolWorker-1,2025-09-16T08:35:18.768703,2025-09-16T08:35:18.779945,0.011241096071898937
+anon_5f74b0a5-0c82-4329-b441-bb5144fa4f45.svs,/vol/biomedic3/histopatho/win_share/2023-04-29/anon_5f74b0a5-0c82-4329-b441-bb5144fa4f45.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-04-29/anon_5f74b0a5-0c82-4329-b441-bb5144fa4f45.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-04-29/anon_5f74b0a5-0c82-4329-b441-bb5144fa4f45.svs"" does not exist
+",2025-09-16T08:35:18.780324,ForkPoolWorker-1,2025-09-16T08:35:18.780185,2025-09-16T08:35:18.780324,0.0001392450649291277
+anon_7da799c1-f3c0-4995-8a86-bba15a1ec8ab.svs,/vol/biomedic3/histopatho/win_share/2023-05-22/anon_7da799c1-f3c0-4995-8a86-bba15a1ec8ab.svs,"unable to load from file b'/vol/biomedic3/histopatho/win_share/2023-05-22/anon_7da799c1-f3c0-4995-8a86-bba15a1ec8ab.svs'
+  VipsForeignLoad: file ""/vol/biomedic3/histopatho/win_share/2023-05-22/anon_7da799c1-f3c0-4995-8a86-bba15a1ec8ab.svs"" does not exist
+",2025-09-16T10:41:49.164296,ForkPoolWorker-2,2025-09-16T10:41:49.137972,2025-09-16T10:41:49.164296,0.026322943158447742

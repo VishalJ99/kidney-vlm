@@ -33,7 +33,8 @@ export PYTHONUNBUFFERED=1
 # Activate conda environment if needed
 # Uncomment and modify if you have a specific conda environment for this task
 # source /vol/biomedic3/vj724/miniconda3/bin/activate
-# conda activate your_env_name
+module load python
+conda activate titan
 
 # Change to working directory
 cd /data2/vj724/kidney-vlm

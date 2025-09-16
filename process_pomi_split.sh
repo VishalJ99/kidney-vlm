@@ -12,7 +12,7 @@ if [ $# -ne 1 ]; then
 fi
 
 SPLIT_NUM=$1
-SCRIPT_DIR="/data2/vj724/kidney-vlm"
+SCRIPT_DIR="/anvme/workspace/b180dc43-reg2025/kidney-vlm"
 TITAN_DIR="${SCRIPT_DIR}/titan_standalone"
 WORKLIST_DIR="${SCRIPT_DIR}/pomi_worklists"
 OUTPUT_BASE_DIR="${SCRIPT_DIR}/pomi_hne_h5s_batch"
@@ -75,8 +75,8 @@ while IFS= read -r WSI_PATH; do
     python "${TITAN_DIR}/extract_patches_coords_vips.py" \
         --input "${WSI_PATH}" \
         --output "${OUTPUT_H5}" \
-        --patch-size 512 \
-        --step-size 512 \
+        --patch-size 973 \
+        --step-size 973 \
         --level 0 \
         --tissue-threshold 0.25 \
         --downsample-factor 16 \
