@@ -319,7 +319,9 @@ def main():
         log.write(f"H5 Directory: {args.h5_dir}\n")
         log.write(f"Output Directory: {args.output_dir}\n")
         if args.worklist:
-            log.write(f"Worklist: {args.worklist} ({len(worklist_cases)} cases)\n")
+            print(f"Worklist: {args.worklist}")
+            log.write(f"Worklist: {args.worklist}")
+            log.write(f"{worklist_cases}")
         log.write(f"Total files: {len(processing_tasks)}\n")
         log.write("="*60 + "\n\n")
         
