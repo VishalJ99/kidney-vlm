@@ -134,8 +134,8 @@ def main():
     )
     
     # Input/Output arguments
-    parser.add_argument('--wsi_dir', required=True, 
-                        help='Directory containing WSI files')
+    parser.add_argument('--wsi_dir', required=False, 
+                        help='Directory containing WSI files (not needed if --worklist has full paths)')
     parser.add_argument('--h5_dir', required=True,
                         help='Directory containing H5 coordinate files')
     parser.add_argument('--output_dir', required=True,
@@ -172,16 +172,38 @@ def main():
     
     args = parser.parse_args()
     
+    # Validate inputs
+    if not args.worklist and not args.wsi_dir:
+        parser.error("Either --worklist or --wsi_dir must be provided")
+    
     # Create output directory
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     
-    # Load worklist if provided
-    worklist_cases = None
-    if args.worklist:
-        print(f"Loading worklist from {args.worklist}...")
+    # Get WSI files either from worklist or directory scan
+    wsi_files = []
+    worklist_cases = None  # This will be set to None when using direct paths
+    
+    if args.worklist and not args.wsi_dir:
+        # Direct path mode - read full paths from worklist
+        print(f"Loading WSI paths directly from worklist: {args.worklist}")
         with open(args.worklist, 'r') as f:
-            # Support both with and without extensions
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith('#'):
+                    wsi_path = Path(line)
+                    if wsi_path.exists():
+                        wsi_files.append(wsi_path)
+                    else:
+                        print(f"Warning: File not found: {line}")
+        wsi_files = sorted(wsi_files)[:args.limit]
+        print(f"Loaded {len(wsi_files)} valid WSI files from worklist")
+        # Note: worklist_cases remains None, so no filtering will happen later
+        
+    elif args.worklist and args.wsi_dir:
+        # Legacy mode - use worklist as filter on directory scan
+        print(f"Loading worklist for filtering from {args.worklist}...")
+        with open(args.worklist, 'r') as f:
             worklist_cases = set()
             for line in f:
                 if line.strip():
@@ -189,21 +211,30 @@ def main():
                     worklist_cases.add(line.strip())
                     worklist_cases.add(Path(line.strip()).stem)
         print(f"Loaded {len(worklist_cases)//2} cases from worklist")
-    
-    # Find all WSI files
-    wsi_files = []
-    wsi_dir = Path(args.wsi_dir)
-    for ext in args.extensions:
-        wsi_files.extend(wsi_dir.glob(f"*{ext}"))
-        wsi_files.extend(wsi_dir.glob(f"*{ext.upper()}"))
-    
-    wsi_files = sorted(set(wsi_files))[:args.limit]
+        
+        # Then scan directory
+        wsi_dir = Path(args.wsi_dir)
+        for ext in args.extensions:
+            wsi_files.extend(wsi_dir.glob(f"*{ext}"))
+            wsi_files.extend(wsi_dir.glob(f"*{ext.upper()}"))
+        wsi_files = sorted(set(wsi_files))[:args.limit]
+        print(f"Found {len(wsi_files)} WSI files in {args.wsi_dir}")
+        
+    else:
+        # Directory-only mode (no worklist)
+        wsi_dir = Path(args.wsi_dir)
+        for ext in args.extensions:
+            wsi_files.extend(wsi_dir.glob(f"*{ext}"))
+            wsi_files.extend(wsi_dir.glob(f"*{ext.upper()}"))
+        wsi_files = sorted(set(wsi_files))[:args.limit]
+        print(f"Found {len(wsi_files)} WSI files in {args.wsi_dir}")
     
     if not wsi_files:
-        print(f"No WSI files found in {args.wsi_dir}")
+        if args.worklist:
+            print(f"No valid WSI files found in worklist")
+        else:
+            print(f"No WSI files found in {args.wsi_dir}")
         return 1
-    
-    print(f"Found {len(wsi_files)} WSI files")
     
     # Dry-run mode
     if args.dry_run:
