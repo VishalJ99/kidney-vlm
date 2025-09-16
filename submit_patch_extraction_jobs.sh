@@ -26,7 +26,7 @@ for i in {1..10}; do
     FILE_COUNT=$(wc -l < "$WORKLIST")
     
     # Submit the job and capture the job ID
-    JOB_ID=$(sbatch --parsable slurm_pomi_single_node.sh $i)
+    JOB_ID=$(sbatch --parsable slurm_patch_extraction_job.sh $i)
     
     if [ $? -eq 0 ]; then
         echo "✓ Submitted job ${JOB_ID} for split ${i} (${FILE_COUNT} files)"
