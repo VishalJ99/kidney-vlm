@@ -63,9 +63,7 @@ echo "Starting patch extraction (foreground processing only)..."
     --patch-size 973 \
     --tissue-threshold 0.25 \
     --mode contiguous \
-    --workers 16 \
-    --no-viz
-
+    --workers 1 
 # Check exit status
 if [ $? -eq 0 ]; then
     echo "Patch extraction completed successfully"
