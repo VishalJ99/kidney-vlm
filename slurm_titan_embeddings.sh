@@ -70,20 +70,20 @@ echo "Number of WSIs to process: $(wc -l < $WORKLIST)"
 # Create output directory if needed
 mkdir -p "$OUTPUT_DIR"
 
-# Run TITAN embedding generation
+# Run TITAN embedding generation with optimized process
 cd /workspace
 
-echo "Starting TITAN embedding generation..."
-echo "Command: python batch_process_titan.py --worklist $WORKLIST --h5_dir $H5_DIR --output_dir $OUTPUT_DIR --batch_size 32 --num_workers 4 --gpu_id 0 --target_patch_size 512 --skip_existing"
+echo "Starting optimized TITAN embedding generation..."
+echo "Command: python process_wsi_with_titan.py --worklist $WORKLIST --h5_path $H5_DIR --output_path $OUTPUT_DIR --batch_size 32 --num_workers 4 --gpu_id 0 --target_patch_size 512 --skip_existing"
 
 module load python
 conda activate titan
 
 python \
-    titan_standalone/batch_process_titan.py \
+    titan_standalone/process_wsi_with_titan.py \
     --worklist "$WORKLIST" \
-    --h5_dir "$H5_DIR" \
-    --output_dir "$OUTPUT_DIR" \
+    --h5_path "$H5_DIR" \
+    --output_path "$OUTPUT_DIR" \
     --batch_size 32 \
     --num_workers 4 \
     --gpu_id 0 \
