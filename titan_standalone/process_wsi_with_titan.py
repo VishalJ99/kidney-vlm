@@ -209,6 +209,7 @@ def load_models(gpu_id=None, use_optimized_transform=True):
 
 def process_single_wsi(wsi_path, h5_path, output_path,
                        titan, conch, transform, device,
+                       use_optimized_transform=True,
                        save_patch_features=False,
                        batch_size=32,
                        num_workers=4,
@@ -577,6 +578,7 @@ def main():
                     conch=conch,
                     transform=transform,
                     device=device,
+                    use_optimized_transform=not args.use_pil_transform,
                     save_patch_features=args.save_patch_features,
                     batch_size=args.batch_size,
                     num_workers=args.num_workers,
