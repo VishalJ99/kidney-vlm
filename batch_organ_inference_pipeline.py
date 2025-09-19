@@ -83,109 +83,12 @@ def get_wsi_files(input_path: Path, worklist: Path = None) -> List[Path]:
     return sorted(set(wsi_files))
 
 
-def detect_wsi_mpp_and_patch_size(wsi_path: Path, verbose: bool = True) -> tuple:
-    """
-    Auto-detect appropriate patch size based on WSI MPP.
-    Uses formula: ceil((0.5/mpp)*512) for dynamic scaling.
-    Returns (patch_size, mpp, estimated_magnification)
-    """
-    import math
-    
-    try:
-        from cucim import CuImage
-        img = CuImage(str(wsi_path))
-        
-        # Try to get MPP from metadata
-        mpp = None
-        mpp_x = None
-        mpp_y = None
-        
-        # Check for aperio metadata first (cuCIM style)
-        metadata = img.metadata
-        if 'aperio' in metadata:
-            aperio_meta = metadata['aperio']
-            if 'MPP' in aperio_meta:
-                mpp = float(aperio_meta['MPP'])
-                mpp_x = mpp_y = mpp
-        
-        # Fallback to openslide-style properties if available
-        if mpp is None and hasattr(img, 'properties'):
-            props = img.properties
-            if 'openslide.mpp-x' in props and 'openslide.mpp-y' in props:
-                mpp_x = float(props['openslide.mpp-x'])
-                mpp_y = float(props['openslide.mpp-y'])
-                mpp = (mpp_x + mpp_y) / 2
-            elif 'aperio.MPP' in props:
-                mpp = float(props['aperio.MPP'])
-                mpp_x = mpp_y = mpp
-        
-        # Get level 0 dimensions
-        try:
-            level0_dims = img.resolutions['level_dimensions'][0]
-        except:
-            level0_dims = img.size('XY')
-        
-        # Estimate magnification from MPP
-        mag_estimate = None
-        if mpp:
-            # Approximate magnification based on typical MPP values
-            if 0.23 <= mpp <= 0.27:
-                mag_estimate = "40x"
-            elif 0.48 <= mpp <= 0.52:
-                mag_estimate = "20x"
-            elif 0.18 <= mpp <= 0.22:
-                mag_estimate = "60x"
-            elif 0.35 <= mpp <= 0.40:
-                mag_estimate = "25x"
-            else:
-                # Estimate based on 40x = 0.25 MPP reference
-                approx_mag = int(40 * (0.25 / mpp))
-                mag_estimate = f"~{approx_mag}x"
-        
-        # Print detection info
-        if verbose:
-            print(f"\nWSI: {wsi_path.name}")
-            print(f"  Level 0 dimensions: {level0_dims[0]} x {level0_dims[1]} pixels")
-            if mpp_x and mpp_y:
-                print(f"  MPP (X,Y): {mpp_x:.4f}, {mpp_y:.4f} microns/pixel")
-            if mpp:
-                print(f"  MPP (avg): {mpp:.4f} microns/pixel")
-                print(f"  Estimated magnification: {mag_estimate}")
-        
-        # Determine patch size using dynamic formula
-        if mpp:
-            # Dynamic patch size based on MPP
-            # Formula: ceil((0.5/mpp) * 512)
-            # This maintains consistent physical tissue area across magnifications
-            patch_size = math.ceil((0.5 / mpp) * 512)
-            
-            if verbose:
-                print(f"  → Calculated patch size: {patch_size}")
-                print(f"    (Formula: ceil((0.5/{mpp:.4f})*512) = {patch_size})")
-                
-                # Show physical area covered
-                physical_size_microns = patch_size * mpp
-                print(f"    Physical area: {physical_size_microns:.1f} x {physical_size_microns:.1f} μm")
-        else:
-            patch_size = 512
-            if verbose:
-                print(f"  → Using default patch size: 512 (MPP not detected)")
-        
-        img.close()
-        return patch_size, mpp, mag_estimate
-        
-    except Exception as e:
-        if verbose:
-            print(f"Error detecting MPP for {wsi_path.name}: {e}")
-    
-    # Default fallback
-    return 512, None, None
 
 
 def phase1_batch_extract_patches(wsi_files: List[Path], h5_dir: Path, viz_dir: Path,
                                 patch_size: int, tissue_threshold: float, 
                                 workers: int, gpu_id: int, worklist_path: Path = None,
-                                auto_patch_size: bool = False, no_viz: bool = False) -> bool:
+                                scale_patch_to_mpp: float = None, no_viz: bool = False) -> bool:
     """Phase 1: Batch extract patches using cuCIM (GPU-optimized)."""
     print("\n" + "="*60)
     print("PHASE 1: BATCH PATCH EXTRACTION (cuCIM)")
@@ -194,29 +97,12 @@ def phase1_batch_extract_patches(wsi_files: List[Path], h5_dir: Path, viz_dir: P
     h5_dir.mkdir(parents=True, exist_ok=True)
     viz_dir.mkdir(parents=True, exist_ok=True)
     
-    # Build and save manifest if auto-detecting patch sizes
-    manifest_path = None
-    if auto_patch_size and wsi_files:
-        print("Auto-detecting patch size from WSI metadata...")
-        wsi_manifest = {}
-        
-        for wsi in wsi_files:
-            detected_patch_size, mpp, mag = detect_wsi_mpp_and_patch_size(wsi, verbose=True)
-            wsi_manifest[str(wsi)] = {
-                'patch_size': detected_patch_size,
-                'mpp': mpp,
-                'magnification': mag
-            }
-        
-        # Save manifest for reproducibility
-        manifest_path = h5_dir.parent / 'wsi_manifest.json'
-        with open(manifest_path, 'w') as f:
-            import json
-            json.dump(wsi_manifest, f, indent=2)
-        print(f"\n✓ Saved WSI manifest to {manifest_path}")
+    # Report patch size strategy
+    if scale_patch_to_mpp:
+        print(f"Auto-scaling patch size to achieve target MPP: {scale_patch_to_mpp}")
+        print(f"Base patch size: {patch_size}px will be scaled based on detected MPP")
     else:
-        # Use fixed patch size for all WSIs
-        print(f"Using fixed patch size {patch_size} for all WSIs")
+        print(f"Using fixed patch size: {patch_size}px for all WSIs")
     
     # Create temporary worklist if needed
     temp_worklist = None
@@ -233,16 +119,16 @@ def phase1_batch_extract_patches(wsi_files: List[Path], h5_dir: Path, viz_dir: P
         "python", str(EXTRACT_SCRIPT_CUCIM),
         "--worklist", str(worklist_to_use),
         "--output-dir", str(h5_dir),
-        "--patch-size", str(patch_size),  # Default patch size (will be overridden by manifest if present)
+        "--patch-size", str(patch_size),
         "--tissue-threshold", str(tissue_threshold),
         "--workers", str(workers),
         "--gpu", str(gpu_id),
         "--batch"  # Enable batch mode
     ]
     
-    # Add manifest path if auto-detecting
-    if manifest_path:
-        cmd.extend(["--manifest", str(manifest_path)])
+    # Add scale-patch-to-mpp flag if specified
+    if scale_patch_to_mpp:
+        cmd.extend(["--scale-patch-to-mpp", str(scale_patch_to_mpp)])
     
     # Add visualization options
     if no_viz:
@@ -257,8 +143,6 @@ def phase1_batch_extract_patches(wsi_files: List[Path], h5_dir: Path, viz_dir: P
     else:
         print("Visualizations disabled (--no-viz)")
     print(f"Workers: {workers}, GPU: {gpu_id}")
-    if manifest_path:
-        print(f"Using per-WSI patch sizes from manifest")
     
     try:
         start_time = time.time()
@@ -560,8 +444,8 @@ def main():
                        help="Skip TITAN embedding if files exist")
     parser.add_argument("--keep-intermediate", action="store_true",
                        help="Keep intermediate H5 and embedding files")
-    parser.add_argument("--auto-patch-size", action="store_true",
-                       help="Auto-detect patch size based on WSI MPP (40x=1024, 20x=512)")
+    parser.add_argument("--scale-patch-to-mpp", type=float, default=None,
+                       help="Auto-scale patch size to achieve target MPP (e.g., 0.5 for 20x)")
     
     # Other options
     parser.add_argument("--verbose", action="store_true",
@@ -613,7 +497,7 @@ def main():
             args.patch_size, args.tissue_threshold,
             args.workers, args.gpu_id,
             args.worklist,
-            auto_patch_size=args.auto_patch_size,
+            scale_patch_to_mpp=args.scale_patch_to_mpp,
             no_viz=args.no_viz
         )
         if not success:

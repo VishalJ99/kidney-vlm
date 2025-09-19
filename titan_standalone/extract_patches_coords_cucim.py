@@ -17,6 +17,7 @@ from datetime import datetime
 from pathlib import Path
 from queue import Queue
 import threading
+import math
 
 # HSV tissue detection constants (Virchow paper values)
 DEFAULT_HUE_MIN = 90
@@ -68,6 +69,68 @@ def calculate_tissue_percentage(patch_np, hue_min=DEFAULT_HUE_MIN, hue_max=DEFAU
     """Calculate the percentage of tissue in a patch using Virchow HSV ranges."""
     tissue_mask = detect_tissue_hsv(patch_np, hue_min, hue_max, sat_min, sat_max, val_min, val_max)
     return np.sum(tissue_mask) / tissue_mask.size
+
+
+def detect_mpp_from_cucim_image(img):
+    """
+    Detect MPP (microns per pixel) from an open CuImage object.
+    
+    Args:
+        img: Open CuImage object
+        
+    Returns:
+        tuple: (mpp, mpp_x, mpp_y, mag_estimate)
+            - mpp: Average MPP value (or None if not detected)
+            - mpp_x: X-axis MPP (or None)
+            - mpp_y: Y-axis MPP (or None)
+            - mag_estimate: Estimated magnification string (e.g., "40x")
+    """
+    mpp = None
+    mpp_x = None
+    mpp_y = None
+    
+    # Check for aperio metadata first (cuCIM style)
+    try:
+        metadata = img.metadata
+        if 'aperio' in metadata:
+            aperio_meta = metadata['aperio']
+            if 'MPP' in aperio_meta:
+                mpp = float(aperio_meta['MPP'])
+                mpp_x = mpp_y = mpp
+    except:
+        pass
+    
+    # Fallback to openslide-style properties if available
+    if mpp is None and hasattr(img, 'properties'):
+        try:
+            props = img.properties
+            if 'openslide.mpp-x' in props and 'openslide.mpp-y' in props:
+                mpp_x = float(props['openslide.mpp-x'])
+                mpp_y = float(props['openslide.mpp-y'])
+                mpp = (mpp_x + mpp_y) / 2
+            elif 'aperio.MPP' in props:
+                mpp = float(props['aperio.MPP'])
+                mpp_x = mpp_y = mpp
+        except:
+            pass
+    
+    # Estimate magnification from MPP
+    mag_estimate = None
+    if mpp:
+        if 0.23 <= mpp <= 0.27:
+            mag_estimate = "40x"
+        elif 0.48 <= mpp <= 0.52:
+            mag_estimate = "20x"
+        elif 0.18 <= mpp <= 0.22:
+            mag_estimate = "60x"
+        elif 0.35 <= mpp <= 0.40:
+            mag_estimate = "25x"
+        else:
+            # Estimate based on 40x = 0.25 MPP reference
+            approx_mag = int(40 * (0.25 / mpp))
+            mag_estimate = f"~{approx_mag}x"
+    
+    return mpp, mpp_x, mpp_y, mag_estimate
 
 
 def parse_exclusion_conditions(exclusion_str):
@@ -442,7 +505,8 @@ def extract_patch_coordinates(
     sat_min=DEFAULT_SAT_MIN,
     sat_max=DEFAULT_SAT_MAX,
     val_min=DEFAULT_VAL_MIN,
-    val_max=DEFAULT_VAL_MAX
+    val_max=DEFAULT_VAL_MAX,
+    scale_patch_to_mpp=None
 ):
     """
     Extract patch coordinates from a WSI using cuCIM and save to H5 format.
@@ -462,6 +526,35 @@ def extract_patch_coordinates(
     
     # Open WSI with cuCIM
     img = CuImage(wsi_path)
+    
+    # Detect MPP from image metadata
+    mpp, mpp_x, mpp_y, mag_estimate = detect_mpp_from_cucim_image(img)
+    
+    # Store original requested patch size for metadata
+    original_patch_size = patch_size
+    actual_patch_size = patch_size
+    
+    # Auto-scale patch size if target MPP specified
+    if scale_patch_to_mpp and mpp:
+        # Scale patch size to achieve target MPP
+        scale_factor = scale_patch_to_mpp / mpp
+        actual_patch_size = int(math.ceil(patch_size * scale_factor))
+        
+        print(f"WSI MPP detected: {mpp:.4f} ({mag_estimate})")
+        print(f"Scaling patch size: {patch_size}px → {actual_patch_size}px")
+        print(f"Target MPP: {scale_patch_to_mpp:.4f}, Scale factor: {scale_factor:.2f}x")
+        physical_size = patch_size * scale_patch_to_mpp
+        print(f"Physical area: {physical_size:.1f}μm × {physical_size:.1f}μm")
+        
+        # Update patch_size for extraction
+        patch_size = actual_patch_size
+        
+    elif scale_patch_to_mpp and not mpp:
+        print(f"Warning: Cannot scale to target MPP {scale_patch_to_mpp} - MPP not detected in WSI")
+        print(f"Using original patch size: {patch_size}px")
+        
+    elif mpp:
+        print(f"WSI MPP: {mpp:.4f} ({mag_estimate}), using fixed patch size: {patch_size}px")
     
     # Get pyramid information
     resolutions = img.resolutions
@@ -556,7 +649,8 @@ def extract_patch_coordinates(
         # Save metadata as attributes
         f.attrs['wsi_path'] = wsi_path
         f.attrs['slide_name'] = os.path.splitext(os.path.basename(wsi_path))[0]
-        f.attrs['patch_size'] = patch_size
+        f.attrs['patch_size'] = patch_size  # Actual size used for extraction
+        f.attrs['original_patch_size'] = original_patch_size  # User-requested size
         f.attrs['step_size'] = step_size
         f.attrs['extraction_level'] = 0  # Always extract at level 0
         f.attrs['tissue_detection_level'] = level if level is not None else 'auto'
@@ -570,6 +664,16 @@ def extract_patch_coordinates(
         f.attrs['val_min'] = val_min
         f.attrs['val_max'] = val_max
         f.attrs['num_patches'] = len(valid_coordinates)
+        
+        # Add MPP metadata (ALWAYS saved, even if not used for scaling)
+        f.attrs['mpp'] = float(mpp) if mpp else -1.0  # -1.0 indicates not detected
+        f.attrs['mpp_x'] = float(mpp_x) if mpp_x else -1.0
+        f.attrs['mpp_y'] = float(mpp_y) if mpp_y else -1.0
+        f.attrs['magnification'] = mag_estimate if mag_estimate else 'unknown'
+        
+        # Add scaling metadata
+        f.attrs['target_mpp'] = float(scale_patch_to_mpp) if scale_patch_to_mpp else -1.0
+        f.attrs['mpp_scaled'] = bool(scale_patch_to_mpp and mpp)  # True if scaling was applied
         
         print(f"Saved {len(valid_coordinates)} patch coordinates")
     
@@ -1132,6 +1236,9 @@ def main():
                         help="Text file with filenames to process (one per line)")
     parser.add_argument("--manifest", type=str, default=None,
                         help="JSON manifest file with per-WSI patch sizes and MPP values")
+    parser.add_argument("--scale-patch-to-mpp", type=float, default=None,
+                        help="Auto-scale patch size to achieve target MPP (e.g., 0.5 for 20x). "
+                             "Maintains consistent physical coverage across different magnifications.")
     parser.add_argument("--dry-run", action="store_true",
                         help="Show files that would be processed without actually processing")
     parser.add_argument("--verify", action="store_true", 
@@ -1195,6 +1302,7 @@ def main():
             'sat_max': args.sat_max,
             'val_min': args.val_min,
             'val_max': args.val_max,
+            'scale_patch_to_mpp': args.scale_patch_to_mpp,  # Add new flag
             'manifest': args.manifest  # Pass manifest path to process_batch
         }
         
@@ -1257,7 +1365,8 @@ def main():
                 sat_min=args.sat_min,
                 sat_max=args.sat_max,
                 val_min=args.val_min,
-                val_max=args.val_max
+                val_max=args.val_max,
+                scale_patch_to_mpp=args.scale_patch_to_mpp
             )
             
             elapsed_time = time.time() - start_time
