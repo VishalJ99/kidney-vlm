@@ -30,9 +30,9 @@ DEFAULT_VAL_MAX = 255
 DEFAULT_DOWNSAMPLE_FACTOR = 16
 
 # Default tissue area threshold
-DEFAULT_TISSUE_THRESHOLD = 0.25
+DEFAULT_TISSUE_THRESHOLD = 0.05
 
-# Optimal chunk size for cuCIM processing (from benchmarks)
+# Optimal chunk size for cuCIM processing, empirically determined
 DEFAULT_CHUNK_SIZE = 2048
 
 
@@ -324,19 +324,37 @@ def extract_patch_coordinates_pyramid(
 ):
     """
     Extract patches using pyramid level for tissue detection (fast path).
+    Always outputs coordinates in level 0 space.
+    If level is specified, uses that level for tissue detection.
+    Otherwise defaults to highest pyramid level.
     """
     resolutions = img.resolutions
-    level_dims = resolutions['level_dimensions'][level]
+    # Always use level 0 dimensions for coordinate generation
+    level_dims = resolutions['level_dimensions'][0]
     level_width, level_height = level_dims
-    level_downsample = resolutions['level_downsamples'][level]
+    level_downsample = resolutions['level_downsamples'][0]  # Always 1.0 for level 0
     
-    # Use highest pyramid level for tissue detection
-    tissue_level = resolutions['level_count'] - 1
+    # Choose tissue detection level
+    if level is not None:
+        # Use specified level for tissue detection
+        tissue_level = level
+        print(f"Using specified level {tissue_level} for tissue detection")
+    else:
+        # Default to highest pyramid level for fastest tissue detection
+        tissue_level = resolutions['level_count'] - 1
+        print(f"Using default highest level {tissue_level} for tissue detection")
+    
     tissue_dims = resolutions['level_dimensions'][tissue_level]
     tissue_width, tissue_height = tissue_dims
     tissue_downsample = resolutions['level_downsamples'][tissue_level]
     
-    print(f"Using pyramid level {tissue_level} for tissue detection")
+    # Calculate if we need additional downsampling
+    additional_downsample = downsample_factor / tissue_downsample
+    if additional_downsample < 1:
+        additional_downsample = 1  # No upsampling
+    
+    print(f"Pyramid downsample: {tissue_downsample:.1f}x, Target: {downsample_factor}x")
+    print(f"Additional downsample needed: {additional_downsample:.1f}x")
     print(f"Tissue detection resolution: {tissue_width}x{tissue_height}")
     
     # Load entire tissue detection level (small)
@@ -349,6 +367,16 @@ def extract_patch_coordinates_pyramid(
             break
     
     tissue_np = np.asarray(tissue_img)
+    
+    # Apply additional downsampling if needed
+    if additional_downsample > 1:
+        new_width = int(tissue_width / additional_downsample)
+        new_height = int(tissue_height / additional_downsample)
+        print(f"Applying additional {additional_downsample:.1f}x downsampling: {tissue_width}x{tissue_height} -> {new_width}x{new_height}")
+        tissue_np = cv2.resize(tissue_np, (new_width, new_height), interpolation=cv2.INTER_LANCZOS4)
+        # Update dimensions for coordinate mapping
+        tissue_width, tissue_height = new_width, new_height
+        tissue_downsample = tissue_downsample * additional_downsample
     
     # Detect tissue
     tissue_mask = detect_tissue_hsv(tissue_np, hue_min, hue_max, 
@@ -397,7 +425,7 @@ def extract_patch_coordinates(
     output_path,
     patch_size=256,
     step_size=None,
-    level=0,
+    level=None,
     tissue_threshold=DEFAULT_TISSUE_THRESHOLD,
     downsample_factor=DEFAULT_DOWNSAMPLE_FACTOR,
     max_patches=None,
@@ -428,7 +456,8 @@ def extract_patch_coordinates(
     
     print(f"Processing WSI: {wsi_path}")
     print(f"Output H5: {output_path}")
-    print(f"Patch size: {patch_size}, Step size: {step_size}, Level: {level}")
+    print(f"Patch size: {patch_size}, Step size: {step_size}")
+    print(f"Tissue detection level: {level if level is not None else 'auto (highest)'}")
     print(f"Mode: {mode}, Tissue threshold: {tissue_threshold}")
     
     # Open WSI with cuCIM
@@ -444,14 +473,23 @@ def extract_patch_coordinates(
     for i, (dims, downsample) in enumerate(zip(level_dimensions, level_downsamples)):
         print(f"  Level {i}: {dims[0]}x{dims[1]} (downsample: {downsample:.1f}x)")
     
-    # Validate requested level
-    if level >= level_count:
+    # Validate requested level if specified
+    if level is not None and level >= level_count:
         print(f"Error: Level {level} not available. Image has {level_count} levels.")
         raise ValueError(f"Level {level} not available")
     
     # Choose processing strategy
     tissue_mask = None
-    if level_count > 1 and level > 0:
+    if level == 0:
+        # If level 0 explicitly requested, use chunked processing
+        print("Level 0 explicitly requested, using chunked processing")
+        coordinates, tissue_mask = extract_patch_coordinates_chunked(
+            img, wsi_path, patch_size, step_size, 0,  # Always extract at level 0
+            tissue_threshold, downsample_factor, chunk_size,
+            exclusion_conditions, exclusion_mode,
+            hue_min, hue_max, sat_min, sat_max, val_min, val_max
+        )
+    elif level_count > 1:
         # Use pyramid for tissue detection (fast path)
         print("Using pyramid-based tissue detection (fast path)")
         coordinates = extract_patch_coordinates_pyramid(
@@ -461,10 +499,10 @@ def extract_patch_coordinates(
             hue_min, hue_max, sat_min, sat_max, val_min, val_max
         )
     else:
-        # Use chunked processing for level 0
-        print("Using chunked processing for level 0")
+        # Only use chunked processing if no pyramid levels available
+        print("No pyramid levels available, using chunked processing")
         coordinates, tissue_mask = extract_patch_coordinates_chunked(
-            img, wsi_path, patch_size, step_size, level,
+            img, wsi_path, patch_size, step_size, 0,  # Always extract at level 0
             tissue_threshold, downsample_factor, chunk_size,
             exclusion_conditions, exclusion_mode,
             hue_min, hue_max, sat_min, sat_max, val_min, val_max
@@ -485,8 +523,8 @@ def extract_patch_coordinates(
         print("No valid coordinates found!")
         return 0
     
-    # Prepare final coordinates for H5
-    valid_coordinates = [(x, y, patch_size, level, pct) 
+    # Prepare final coordinates for H5 (always level 0)
+    valid_coordinates = [(x, y, patch_size, 0, pct) 
                         for x, y, pct in coordinates]
     
     print(f"Final count: {len(valid_coordinates)} valid patches")
@@ -501,7 +539,7 @@ def extract_patch_coordinates(
         # Convert to arrays
         coords_array = np.array([[x, y] for x, y, _, _, _ in valid_coordinates], dtype=np.int32)
         patch_sizes = np.array([patch_size for _ in valid_coordinates], dtype=np.int32)
-        levels = np.array([level for _ in valid_coordinates], dtype=np.int32)
+        levels = np.array([0 for _ in valid_coordinates], dtype=np.int32)  # Always level 0
         tissue_percentages = np.array([pct for _, _, _, _, pct in valid_coordinates], dtype=np.float32)
         
         # Save datasets
@@ -515,7 +553,8 @@ def extract_patch_coordinates(
         f.attrs['slide_name'] = os.path.splitext(os.path.basename(wsi_path))[0]
         f.attrs['patch_size'] = patch_size
         f.attrs['step_size'] = step_size
-        f.attrs['level'] = level
+        f.attrs['extraction_level'] = 0  # Always extract at level 0
+        f.attrs['tissue_detection_level'] = level if level is not None else 'auto'
         f.attrs['tissue_threshold'] = tissue_threshold
         f.attrs['mode'] = mode
         f.attrs['downsample_factor'] = downsample_factor
@@ -944,6 +983,38 @@ def process_batch(input_dir, output_dir, extensions, workers, worklist=None, dry
     return processed_count, error_count
 
 
+def validate_and_set_gpu(gpu_id):
+    """Validate GPU availability and set CUDA device"""
+    import os
+    
+    try:
+        # Try to import cupy to check GPU availability
+        import cupy as cp
+        
+        # Get number of available GPUs
+        num_gpus = cp.cuda.runtime.getDeviceCount()
+        
+        if gpu_id >= num_gpus or gpu_id < 0:
+            raise ValueError(f"GPU {gpu_id} not available. Found {num_gpus} GPUs (0-{num_gpus-1})")
+        
+        # Set CUDA device
+        os.environ['CUDA_VISIBLE_DEVICES'] = str(gpu_id)
+        cp.cuda.Device(gpu_id).use()
+        
+        # Verify the device is working
+        test_array = cp.array([1, 2, 3])
+        _ = cp.sum(test_array)  # Simple operation to verify GPU works
+        
+        print(f"Successfully set GPU device {gpu_id}")
+        return True
+        
+    except ImportError:
+        print("Warning: CuPy not available, GPU selection disabled")
+        return False
+    except Exception as e:
+        raise RuntimeError(f"Failed to set GPU {gpu_id}: {e}")
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Extract patch coordinates from WSI using cuCIM (10x faster than PyVIPS)",
@@ -985,6 +1056,10 @@ def main():
                         help="Downsample factor for tissue detection")
     parser.add_argument("--chunk-size", type=int, default=DEFAULT_CHUNK_SIZE,
                         help="Chunk size for processing (optimal: 2048)")
+    
+    # GPU options
+    parser.add_argument("--gpu", type=int, default=0,
+                        help="GPU device ID to use for processing (default: 0)")
     
     # HSV tissue detection parameters
     parser.add_argument("--hue-min", type=int, default=DEFAULT_HUE_MIN,
@@ -1039,6 +1114,13 @@ def main():
     
     # Parse exclusion conditions
     exclusion_conditions = parse_exclusion_conditions(args.exclusions)
+    
+    # Validate and set GPU device
+    try:
+        validate_and_set_gpu(args.gpu)
+    except (ValueError, RuntimeError) as e:
+        print(f"Error: {e}")
+        return 1
     
     # Determine mode (single file vs batch)
     is_batch_mode = args.batch or args.input_dir is not None or (args.worklist and args.output_dir)
