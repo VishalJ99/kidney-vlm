@@ -19,8 +19,8 @@ from concurrent.futures import ThreadPoolExecutor
 import glob
 import sys
 
-# HuggingFace token for TITAN access
-HF_TOKEN = "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"
+# HuggingFace token for TITAN access (read from environment variable)
+HF_TOKEN = os.environ.get("HF_TOKEN", os.environ.get("HUGGING_FACE_HUB_TOKEN", "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"))
 
 # Note: Monkey patch removed - testing if newer TITAN version fixed the tensor/integer issue
 # Previously needed to fix tensor/integer conversion issue in preprocess_features
@@ -145,10 +145,19 @@ def load_models(gpu_id=None, use_optimized_transform=True):
     print("\nLoading TITAN model...")
     
     # Load HuggingFace token
+    if not HF_TOKEN:
+        print("Warning: HF_TOKEN environment variable not set!")
+        print("Please set: export HF_TOKEN=your_huggingface_token")
+        print("TITAN model requires authentication to access.")
+    else:
+        print(f"Using HuggingFace token: {HF_TOKEN[:10]}...")
+    
     os.environ["HUGGINGFACE_HUB_TOKEN"] = HF_TOKEN
     
-    # Load TITAN
-    titan = AutoModel.from_pretrained('MahmoodLab/TITAN', trust_remote_code=True)
+    # Load TITAN with token
+    titan = AutoModel.from_pretrained('MahmoodLab/TITAN', 
+                                     trust_remote_code=True,
+                                     token=HF_TOKEN if HF_TOKEN else None)
     
     # Apply monkey patch to fix tensor/integer issue
     titan_module = None
