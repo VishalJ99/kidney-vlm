@@ -924,30 +924,15 @@ def process_batch(input_dir, output_dir, extensions, workers, worklist=None, dry
     # Add log suppression for batch processing
     params['suppress_logs'] = True
     
-    # Load manifest if provided for per-WSI patch sizes
-    wsi_manifest = {}
-    if 'manifest' in params and params['manifest']:
-        import json
-        try:
-            with open(params['manifest'], 'r') as f:
-                wsi_manifest = json.load(f)
-            print(f"Loaded WSI manifest with {len(wsi_manifest)} entries")
-        except Exception as e:
-            print(f"Warning: Could not load manifest file: {e}")
-    
     # Prepare arguments for processing
     file_args = []
     for wsi_file in wsi_files:
         output_file = output_path / f"{wsi_file.stem}.h5"
         
-        # Create params copy with custom patch size if available from manifest
+        # Create params copy and remove any manifest reference
         params_copy = params.copy()
-        wsi_str = str(wsi_file)
-        if wsi_str in wsi_manifest:
-            params_copy['patch_size'] = wsi_manifest[wsi_str]['patch_size']
-            # Remove manifest from params to avoid passing it to process_single_wsi
-            if 'manifest' in params_copy:
-                del params_copy['manifest']
+        if 'manifest' in params_copy:
+            del params_copy['manifest']
         
         file_args.append((str(wsi_file), str(output_file), params_copy))
     
@@ -1302,8 +1287,7 @@ def main():
             'sat_max': args.sat_max,
             'val_min': args.val_min,
             'val_max': args.val_max,
-            'scale_patch_to_mpp': args.scale_patch_to_mpp,  # Add new flag
-            'manifest': args.manifest  # Pass manifest path to process_batch
+            'scale_patch_to_mpp': args.scale_patch_to_mpp  # Add new flag
         }
         
         try:
