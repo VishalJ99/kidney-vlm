@@ -530,8 +530,9 @@ def extract_patch_coordinates(
     # Detect MPP from image metadata
     mpp, mpp_x, mpp_y, mag_estimate = detect_mpp_from_cucim_image(img)
     
-    # Store original requested patch size for metadata
+    # Store original requested sizes for metadata
     original_patch_size = patch_size
+    original_step_size = step_size
     actual_patch_size = patch_size
     
     # Auto-scale patch size if target MPP specified
@@ -540,8 +541,17 @@ def extract_patch_coordinates(
         scale_factor = scale_patch_to_mpp / mpp
         actual_patch_size = int(math.ceil(patch_size * scale_factor))
         
+        # CRITICAL: Also scale step_size to maintain overlap behavior
+        if step_size == original_patch_size:
+            # User wanted no overlap (step_size == patch_size)
+            step_size = actual_patch_size
+        else:
+            # User specified custom step_size - scale proportionally
+            step_size = int(math.ceil(step_size * scale_factor))
+        
         print(f"WSI MPP detected: {mpp:.4f} ({mag_estimate})")
         print(f"Scaling patch size: {patch_size}px → {actual_patch_size}px")
+        print(f"Scaling step size: {original_step_size}px → {step_size}px")
         print(f"Target MPP: {scale_patch_to_mpp:.4f}, Scale factor: {scale_factor:.2f}x")
         physical_size = patch_size * scale_patch_to_mpp
         print(f"Physical area: {physical_size:.1f}μm × {physical_size:.1f}μm")
@@ -551,10 +561,10 @@ def extract_patch_coordinates(
         
     elif scale_patch_to_mpp and not mpp:
         print(f"Warning: Cannot scale to target MPP {scale_patch_to_mpp} - MPP not detected in WSI")
-        print(f"Using original patch size: {patch_size}px")
+        print(f"Using original patch size: {patch_size}px, step size: {step_size}px")
         
     elif mpp:
-        print(f"WSI MPP: {mpp:.4f} ({mag_estimate}), using fixed patch size: {patch_size}px")
+        print(f"WSI MPP: {mpp:.4f} ({mag_estimate}), using fixed patch size: {patch_size}px, step size: {step_size}px")
     
     # Get pyramid information
     resolutions = img.resolutions
@@ -651,7 +661,8 @@ def extract_patch_coordinates(
         f.attrs['slide_name'] = os.path.splitext(os.path.basename(wsi_path))[0]
         f.attrs['patch_size'] = patch_size  # Actual size used for extraction
         f.attrs['original_patch_size'] = original_patch_size  # User-requested size
-        f.attrs['step_size'] = step_size
+        f.attrs['step_size'] = step_size  # Actual step size used for extraction
+        f.attrs['original_step_size'] = original_step_size  # User-requested step size
         f.attrs['extraction_level'] = 0  # Always extract at level 0
         f.attrs['tissue_detection_level'] = level if level is not None else 'auto'
         f.attrs['tissue_threshold'] = tissue_threshold
