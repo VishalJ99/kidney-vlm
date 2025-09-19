@@ -469,6 +469,11 @@ def extract_patch_coordinates(
     level_dimensions = resolutions['level_dimensions']
     level_downsamples = resolutions['level_downsamples']
     
+    # Set level to highest possible if None
+    if level is None:
+        level = level_count - 1
+        print(f"Level was None, setting to highest available level: {level}")
+    
     print(f"WSI has {level_count} pyramid levels:")
     for i, (dims, downsample) in enumerate(zip(level_dimensions, level_downsamples)):
         print(f"  Level {i}: {dims[0]}x{dims[1]} (downsample: {downsample:.1f}x)")
@@ -608,8 +613,12 @@ def extract_patch_coordinates(
         overlay = Image.fromarray(viz_np)
         draw = ImageDraw.Draw(overlay)
         
-        # Scale factor for visualization
-        scale_factor = viz_downsample / level_downsamples[level]
+        # Scale factor for visualization (always use level 0 for extraction coordinates)
+        scale_factor = viz_downsample / level_downsamples[0]
+        print(f"Visualization debug:")
+        print(f"  Viz level: {viz_level}, Viz downsample: {viz_downsample:.1f}x")
+        print(f"  Extraction level: 0, Level 0 downsample: {level_downsamples[0]:.1f}x")
+        print(f"  Scale factor: {scale_factor:.1f}x (coordinates will be scaled down by this factor)")
         
         for x, y, _, _, tissue_pct in valid_coordinates:
             # Map to viz coordinates
@@ -1048,8 +1057,8 @@ def main():
                         help="Size of patches in pixels")
     parser.add_argument("--step-size", type=int, default=None,
                         help="Step size between patches (defaults to patch-size for no overlap)")
-    parser.add_argument("--level", type=int, default=0,
-                        help="WSI pyramid level to extract patches from")
+    parser.add_argument("--level", type=int, default=None,
+                        help="WSI pyramid level to extract patches from (default: highest available)")
     parser.add_argument("--tissue-threshold", type=float, default=DEFAULT_TISSUE_THRESHOLD,
                         help="Minimum tissue percentage threshold (0-1)")
     parser.add_argument("--downsample-factor", type=int, default=DEFAULT_DOWNSAMPLE_FACTOR,
