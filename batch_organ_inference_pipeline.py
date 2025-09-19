@@ -185,7 +185,7 @@ def detect_wsi_mpp_and_patch_size(wsi_path: Path, verbose: bool = True) -> tuple
 def phase1_batch_extract_patches(wsi_files: List[Path], h5_dir: Path, viz_dir: Path,
                                 patch_size: int, tissue_threshold: float, 
                                 workers: int, gpu_id: int, worklist_path: Path = None,
-                                auto_patch_size: bool = False) -> bool:
+                                auto_patch_size: bool = False, no_viz: bool = False) -> bool:
     """Phase 1: Batch extract patches using cuCIM (GPU-optimized)."""
     print("\n" + "="*60)
     print("PHASE 1: BATCH PATCH EXTRACTION (cuCIM)")
@@ -216,10 +216,9 @@ def phase1_batch_extract_patches(wsi_files: List[Path], h5_dir: Path, viz_dir: P
         worklist_to_use = temp_worklist
     
     cmd = [
-        "/vol/biomedic3/vj724/.conda/envs/titan/bin/python", str(EXTRACT_SCRIPT_CUCIM),
+        "python", str(EXTRACT_SCRIPT_CUCIM),
         "--worklist", str(worklist_to_use),
         "--output-dir", str(h5_dir),
-        "--viz-dir", str(viz_dir),
         "--patch-size", str(patch_size),
         "--tissue-threshold", str(tissue_threshold),
         "--workers", str(workers),
@@ -227,9 +226,18 @@ def phase1_batch_extract_patches(wsi_files: List[Path], h5_dir: Path, viz_dir: P
         "--batch"  # Enable batch mode
     ]
     
+    # Add visualization options
+    if no_viz:
+        cmd.append("--no-viz")
+    else:
+        cmd.extend(["--viz-dir", str(viz_dir)])
+    
     print(f"Extracting patches for {len(wsi_files)} WSI files...")
     print(f"Output H5 directory: {h5_dir}")
-    print(f"Visualization directory: {viz_dir}")
+    if not no_viz:
+        print(f"Visualization directory: {viz_dir}")
+    else:
+        print("Visualizations disabled (--no-viz)")
     print(f"Workers: {workers}, GPU: {gpu_id}")
     
     try:
@@ -256,7 +264,10 @@ def phase1_batch_extract_patches(wsi_files: List[Path], h5_dir: Path, viz_dir: P
         return True
         
     except subprocess.CalledProcessError as e:
-        print(f"✗ Error in patch extraction: {e.stderr}")
+        print(f"✗ Error in patch extraction:")
+        print(f"  Return code: {e.returncode}")
+        print(f"  STDOUT: {e.stdout}")
+        print(f"  STDERR: {e.stderr}")
         if temp_worklist and temp_worklist.exists():
             temp_worklist.unlink()
         return False
@@ -295,7 +306,7 @@ def phase2_batch_titan_embeddings(wsi_files: List[Path], h5_dir: Path, embed_dir
             f.write(f"{wsi_path}\n")
     
     cmd = [
-        "/vol/biomedic3/vj724/.conda/envs/titan/bin/python", str(PROCESS_SCRIPT_TITAN),
+        "python", str(PROCESS_SCRIPT_TITAN),
         "--worklist", str(temp_worklist),
         "--h5_path", str(h5_dir),
         "--output_path", str(embed_dir),
@@ -535,6 +546,8 @@ def main():
     # Other options
     parser.add_argument("--verbose", action="store_true",
                        help="Show detailed progress")
+    parser.add_argument("--no-viz", action="store_true",
+                       help="Disable visualization outputs (faster processing)")
     
     args = parser.parse_args()
     
@@ -580,7 +593,8 @@ def main():
             args.patch_size, args.tissue_threshold,
             args.workers, args.gpu_id,
             args.worklist,
-            auto_patch_size=args.auto_patch_size
+            auto_patch_size=args.auto_patch_size,
+            no_viz=args.no_viz
         )
         if not success:
             print("Pipeline failed at Phase 1")
