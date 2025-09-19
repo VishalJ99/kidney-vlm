@@ -194,15 +194,29 @@ def phase1_batch_extract_patches(wsi_files: List[Path], h5_dir: Path, viz_dir: P
     h5_dir.mkdir(parents=True, exist_ok=True)
     viz_dir.mkdir(parents=True, exist_ok=True)
     
-    # Auto-detect patch size if requested
+    # Build and save manifest if auto-detecting patch sizes
+    manifest_path = None
     if auto_patch_size and wsi_files:
         print("Auto-detecting patch size from WSI metadata...")
-        # Check all WSIs to report their properties
+        wsi_manifest = {}
+        
         for wsi in wsi_files:
             detected_patch_size, mpp, mag = detect_wsi_mpp_and_patch_size(wsi, verbose=True)
-        # Use the first WSI's detection for all
-        patch_size, _, _ = detect_wsi_mpp_and_patch_size(wsi_files[0], verbose=False)
-        print(f"\n→ Using patch size {patch_size} for all WSIs")
+            wsi_manifest[str(wsi)] = {
+                'patch_size': detected_patch_size,
+                'mpp': mpp,
+                'magnification': mag
+            }
+        
+        # Save manifest for reproducibility
+        manifest_path = h5_dir.parent / 'wsi_manifest.json'
+        with open(manifest_path, 'w') as f:
+            import json
+            json.dump(wsi_manifest, f, indent=2)
+        print(f"\n✓ Saved WSI manifest to {manifest_path}")
+    else:
+        # Use fixed patch size for all WSIs
+        print(f"Using fixed patch size {patch_size} for all WSIs")
     
     # Create temporary worklist if needed
     temp_worklist = None
@@ -219,12 +233,16 @@ def phase1_batch_extract_patches(wsi_files: List[Path], h5_dir: Path, viz_dir: P
         "python", str(EXTRACT_SCRIPT_CUCIM),
         "--worklist", str(worklist_to_use),
         "--output-dir", str(h5_dir),
-        "--patch-size", str(patch_size),
+        "--patch-size", str(patch_size),  # Default patch size (will be overridden by manifest if present)
         "--tissue-threshold", str(tissue_threshold),
         "--workers", str(workers),
         "--gpu", str(gpu_id),
         "--batch"  # Enable batch mode
     ]
+    
+    # Add manifest path if auto-detecting
+    if manifest_path:
+        cmd.extend(["--manifest", str(manifest_path)])
     
     # Add visualization options
     if no_viz:
@@ -239,6 +257,8 @@ def phase1_batch_extract_patches(wsi_files: List[Path], h5_dir: Path, viz_dir: P
     else:
         print("Visualizations disabled (--no-viz)")
     print(f"Workers: {workers}, GPU: {gpu_id}")
+    if manifest_path:
+        print(f"Using per-WSI patch sizes from manifest")
     
     try:
         start_time = time.time()

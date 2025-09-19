@@ -820,11 +820,32 @@ def process_batch(input_dir, output_dir, extensions, workers, worklist=None, dry
     # Add log suppression for batch processing
     params['suppress_logs'] = True
     
+    # Load manifest if provided for per-WSI patch sizes
+    wsi_manifest = {}
+    if 'manifest' in params and params['manifest']:
+        import json
+        try:
+            with open(params['manifest'], 'r') as f:
+                wsi_manifest = json.load(f)
+            print(f"Loaded WSI manifest with {len(wsi_manifest)} entries")
+        except Exception as e:
+            print(f"Warning: Could not load manifest file: {e}")
+    
     # Prepare arguments for processing
     file_args = []
     for wsi_file in wsi_files:
         output_file = output_path / f"{wsi_file.stem}.h5"
-        file_args.append((str(wsi_file), str(output_file), params))
+        
+        # Create params copy with custom patch size if available from manifest
+        params_copy = params.copy()
+        wsi_str = str(wsi_file)
+        if wsi_str in wsi_manifest:
+            params_copy['patch_size'] = wsi_manifest[wsi_str]['patch_size']
+            # Remove manifest from params to avoid passing it to process_single_wsi
+            if 'manifest' in params_copy:
+                del params_copy['manifest']
+        
+        file_args.append((str(wsi_file), str(output_file), params_copy))
     
     # Create result tracking files
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -1109,6 +1130,8 @@ def main():
     # Worklist and dry-run options
     parser.add_argument("--worklist", type=str, default=None,
                         help="Text file with filenames to process (one per line)")
+    parser.add_argument("--manifest", type=str, default=None,
+                        help="JSON manifest file with per-WSI patch sizes and MPP values")
     parser.add_argument("--dry-run", action="store_true",
                         help="Show files that would be processed without actually processing")
     parser.add_argument("--verify", action="store_true", 
@@ -1171,7 +1194,8 @@ def main():
             'sat_min': args.sat_min,
             'sat_max': args.sat_max,
             'val_min': args.val_min,
-            'val_max': args.val_max
+            'val_max': args.val_max,
+            'manifest': args.manifest  # Pass manifest path to process_batch
         }
         
         try:

@@ -3,4 +3,7 @@
 *.pt
 *.json
 *.csv
-pomi_hne_data
+pomi_hne_data*.svs
+core.*
+*.jpg
+*.png
